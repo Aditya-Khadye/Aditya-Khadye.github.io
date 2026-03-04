@@ -1512,10 +1512,15 @@ async function sendMsg(){
   const btn=document.querySelector('.cf-submit');
   btn.textContent='Sending…';btn.disabled=true;
   try{
+    const fd=new FormData();
+    fd.append('name',`${fname} ${lname}`);
+    fd.append('email',email);
+    fd.append('subject',subject);
+    fd.append('message',msg);
     const res=await fetch('https://formspree.io/f/mnjbeeaq',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({name:`${fname} ${lname}`,email,subject,message:msg})
+      headers:{'Accept':'application/json'},
+      body:fd
     });
     if(res.ok){
       btn.style.display='none';
