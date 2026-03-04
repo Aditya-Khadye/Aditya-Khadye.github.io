@@ -1499,39 +1499,7 @@ document.getElementById('docModal').addEventListener('click',e=>{
   if(e.target===document.getElementById('docModal'))closeModal();
 });
 
-// ── Contact form ──────────────────────────────────
-async function sendMsg(){
-  const fname=document.getElementById('fn').value.trim();
-  const lname=document.getElementById('ln').value.trim();
-  const email=document.getElementById('em').value.trim();
-  const subject=document.getElementById('sub').value.trim();
-  const msg=document.getElementById('msg').value.trim();
-  if(!fname||!email||!msg){alert('Please fill in your name, email, and message.');return;}
-  const btn=document.querySelector('.cf-submit');
-  btn.textContent='Sending…';btn.disabled=true;
-  try{
-    const fd=new FormData();
-    fd.append('name',`${fname} ${lname}`);
-    fd.append('email',email);
-    fd.append('subject',subject);
-    fd.append('message',msg);
-    const res=await fetch('https://formspree.io/f/mnjbeeaq',{
-      method:'POST',
-      headers:{'Accept':'application/json'},
-      body:fd
-    });
-    if(res.ok){
-      btn.style.display='none';
-      document.getElementById('cf-ok').style.display='block';
-    } else {
-      btn.textContent='Send message →';btn.disabled=false;
-      alert('Something went wrong. Please email me directly at adityakhadye0406@gmail.com');
-    }
-  } catch(e){
-    btn.textContent='Send message →';btn.disabled=false;
-    alert('Something went wrong. Please email me directly at adityakhadye0406@gmail.com');
-  }
-}
+
 </script>
 </body>
 </html>
