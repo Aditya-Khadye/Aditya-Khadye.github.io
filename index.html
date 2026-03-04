@@ -1333,18 +1333,16 @@ footer{border-top:1px solid var(--border);padding:26px 0;background:var(--bg)}
         </div>
       </div>
       <div class="reveal d2">
-        <div class="contact-form">
+        <form class="contact-form" action="https://formspree.io/f/mnjbeeaq" method="POST">
           <div class="cf-row">
-            <div class="cf-group"><label class="cf-label">First Name</label><input class="cf-input" placeholder="Jane" id="fn"/></div>
-            <div class="cf-group"><label class="cf-label">Last Name</label><input class="cf-input" placeholder="Doe" id="ln"/></div>
+            <div class="cf-group"><label class="cf-label">First Name</label><input class="cf-input" name="first_name" placeholder="Jane" required/></div>
+            <div class="cf-group"><label class="cf-label">Last Name</label><input class="cf-input" name="last_name" placeholder="Doe"/></div>
           </div>
-          <div class="cf-group"><label class="cf-label">Email</label><input class="cf-input" type="email" placeholder="jane@company.com" id="em"/></div>
-          <div class="cf-group"><label class="cf-label">Subject</label><input class="cf-input" placeholder="Job · Research · Collaboration" id="sub"/></div>
-          <div class="cf-group"><label class="cf-label">Message</label><textarea class="cf-textarea" placeholder="Tell me about the role or project. I read every message." id="msg"></textarea></div>
-          <!-- ✏️ Wire to Formspree: fetch('https://formspree.io/f/YOUR_ID', ...) -->
-          <button class="btn btn-amber cf-submit" onclick="sendMsg()">Send message →</button>
-          <div class="cf-success" id="cf-ok">✓ Sent. I'll reply within 24 hours.</div>
-        </div>
+          <div class="cf-group"><label class="cf-label">Email</label><input class="cf-input" type="email" name="email" placeholder="jane@company.com" required/></div>
+          <div class="cf-group"><label class="cf-label">Subject</label><input class="cf-input" name="subject" placeholder="Job · Research · Collaboration"/></div>
+          <div class="cf-group"><label class="cf-label">Message</label><textarea class="cf-textarea" name="message" placeholder="Tell me about the role or project. I read every message." required></textarea></div>
+          <button type="submit" class="btn btn-amber cf-submit">Send message →</button>
+        </form>
       </div>
     </div>
   </div>
