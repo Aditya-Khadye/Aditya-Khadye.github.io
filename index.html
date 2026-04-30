@@ -431,6 +431,7 @@ section{padding:120px 0}
 .pv2{background:linear-gradient(135deg,#150920,#2D1248,#4A1E78);background-size:400% 400%;animation:gradShift 10s ease infinite}
 .pv3{background:linear-gradient(135deg,#091A11,#0F3420,#165230);background-size:400% 400%;animation:gradShift 9s ease infinite}
 .pv4{background:linear-gradient(135deg,#1A1009,#3A2010,#5A3018);background-size:400% 400%;animation:gradShift 11s ease infinite}
+.pv5{background:linear-gradient(135deg,#0D1A12,#143324,#1E5038);background-size:400% 400%;animation:gradShift 9s ease infinite}
 .proj-visual{transition:transform var(--tr)}
 .proj-row:hover .proj-visual{transform:scale(1.01)}
 
@@ -500,6 +501,29 @@ section{padding:120px 0}
   background:var(--bdim2);transition:all var(--tr);
 }
 .cv-gh:hover{background:var(--blue);color:#0D0B09;border-color:var(--blue)}
+
+/* ══════════════════════════════════
+   CASE STUDIES GRID
+══════════════════════════════════ */
+#case-studies{background:var(--bg2)}
+.cs-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
+  margin-top:16px;
+}
+@media(max-width:760px){.cs-grid{grid-template-columns:1fr}}
+.cs-card{
+  border:1px solid var(--border);border-radius:10px;
+  padding:28px;background:var(--card);
+  transition:all var(--tr);display:flex;flex-direction:column;gap:12px;
+  text-decoration:none;
+}
+.cs-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.cs-num{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.cs-title{font-family:var(--serif);font-size:1.35rem;font-weight:500;color:var(--text);line-height:1.2}
+.cs-lang{font-family:var(--mono);font-size:.67rem;color:var(--blue)}
+.cs-desc{font-size:.88rem;color:var(--sub);line-height:1.7;flex:1}
+.cs-cta{font-family:var(--mono);font-size:.7rem;color:var(--blue);margin-top:4px;opacity:0;transition:opacity var(--tr)}
+.cs-card:hover .cs-cta{opacity:1}
 
 /* ══════════════════════════════════
    DOCUMENTS
@@ -900,7 +924,8 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
             <span class="proj-tag">Swift</span><span class="proj-tag">visionOS</span><span class="proj-tag">Python</span><span class="proj-tag">PyTorch</span><span class="proj-tag">OpenCV</span><span class="proj-tag">TCP</span><span class="proj-tag">Linux</span>
           </div>
           <div class="proj-links">
-            <a href="https://github.com/Aditya-Khadye" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="https://github.com/Aditya-Khadye/MonotypeHUD" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="projects/ar-hud.html" class="proj-link pl-ghost">Case study →</a>
           </div>
         </div>
       </div>
@@ -918,7 +943,8 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
             <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">Python</span><span class="proj-tag">Mixed Precision</span><span class="proj-tag">Colab T4</span>
           </div>
           <div class="proj-links">
-            <a href="https://github.com/Aditya-Khadye" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="https://github.com/Aditya-Khadye/DOGGO-Project" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="projects/doggo.html" class="proj-link pl-ghost">Case study →</a>
           </div>
         </div>
       </div>
@@ -936,7 +962,8 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
             <span class="proj-tag">Transformers</span><span class="proj-tag">FAISS + BM25</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Redis</span>
           </div>
           <div class="proj-links">
-            <a href="https://github.com/Aditya-Khadye" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="https://github.com/Aditya-Khadye/AI-Agent" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="projects/rag-agent.html" class="proj-link pl-ghost">Case study →</a>
           </div>
         </div>
       </div>
@@ -958,108 +985,63 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           </div>
         </div>
       </div>
+
+      <div class="proj-row reveal d4">
+        <div class="proj-visual pv5">
+          <div class="proj-emoji">✍️</div>
+          <div class="proj-metric-badge">8 scripts · 4 data sources</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-idx">05 / Research · ML · Typography</div>
+          <h3 class="proj-title">The Script Gap</h3>
+          <p class="proj-desc">Research tool for Monotype identifying which of the world's writing systems are most underserved by current typeface libraries. Combines Google CrUX web exposure data, font support counts, visual diversity scores (ResNet50 embeddings), and glyph complexity metrics — then uses K-Means clustering with silhouette-based model selection to tier scripts by urgency. Currently in active development.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">Python</span><span class="proj-tag">PyTorch</span><span class="proj-tag">ResNet50</span><span class="proj-tag">scikit-learn</span><span class="proj-tag">BigQuery</span><span class="proj-tag">fontTools</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-Khadye/TheScriptGap" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="projects/scriptgap.html" class="proj-link pl-ghost">Case study →</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══ CODE ══ -->
-<section id="code-section">
+<!-- ══ CASE STUDIES ══ -->
+<section id="case-studies">
   <div class="container">
-    <div class="sec-eyebrow"><span class="sec-num">04b</span> Code Samples</div>
-    <div class="code-intro reveal">
-      <h2 class="sec-head" style="margin-bottom:0">How I<br/><em>write code</em></h2>
-      <p>Actual snippets from real projects. I try to write code that explains itself — clear names, honest comments, no magic numbers.</p>
-    </div>
-    <div class="code-viewer reveal d2">
-      <div class="cv-tabs">
-        <div class="cv-tab active" onclick="switchTab(this,'tab1')">validation_gate.py</div>
-        <div class="cv-tab" onclick="switchTab(this,'tab2')">mixed_precision_train.py</div>
-      </div>
-      <div class="cv-panels">
-        <div class="cv-panel active" id="tab1">
-          <pre><span class="cm"># XR Research Platform — session output validation gate</span>
-<span class="cm"># Reduced invalid trials by 35% in Apple Vision Pro studies</span>
-
-<span class="kw">from</span> dataclasses <span class="kw">import</span> dataclass
-<span class="kw">from</span> typing <span class="kw">import</span> List
-<span class="kw">import</span> pandas <span class="kw">as</span> pd
-
-<span class="kw">@dataclass</span>
-<span class="kw">class</span> <span class="fn">ValidationResult</span>:
-    passed: bool
-    failures: List[str]
-    run_id: str
-
-<span class="kw">def</span> <span class="fn">validate_session_output</span>(
-    df: pd.DataFrame,
-    run_id: str,
-    required_cols: List[str],
-    min_rows: int = <span class="nu">10</span>,
-) -> <span class="fn">ValidationResult</span>:
-    <span class="st">"""Gate that catches bad sessions before they waste downstream compute."""</span>
-    failures = []
-
-    <span class="cm"># Schema completeness</span>
-    missing = [c <span class="kw">for</span> c <span class="kw">in</span> required_cols <span class="kw">if</span> c <span class="kw">not in</span> df.columns]
-    <span class="kw">if</span> missing:
-        failures.append(f<span class="st">"Missing columns: {missing}"</span>)
-
-    <span class="cm"># Run completeness</span>
-    <span class="kw">if</span> len(df) < min_rows:
-        failures.append(f<span class="st">"Insufficient rows: {len(df)} &lt; {min_rows}"</span>)
-
-    <span class="cm"># Anomaly: nulls in critical columns</span>
-    null_counts = df[required_cols].isnull().sum()
-    flagged = null_counts[null_counts > <span class="nu">0</span>]
-    <span class="kw">if not</span> flagged.empty:
-        failures.append(f<span class="st">"Null values found: {flagged.to_dict()}"</span>)
-
-    <span class="kw">return</span> <span class="fn">ValidationResult</span>(
-        passed=len(failures) == <span class="nu">0</span>,
-        failures=failures,
-        run_id=run_id,
-    )</pre>
-        </div>
-        <div class="cv-panel" id="tab2">
-          <pre><span class="cm"># ViT training — mixed precision epoch loop</span>
-<span class="cm"># Improved throughput to 1,240 img/sec · 92% GPU util · -36% training time</span>
-
-<span class="kw">import</span> torch
-<span class="kw">from</span> torch.cuda.amp <span class="kw">import</span> GradScaler, autocast
-<span class="kw">from</span> torch.utils.data <span class="kw">import</span> DataLoader
-
-<span class="kw">def</span> <span class="fn">train_epoch</span>(
-    model: torch.nn.Module,
-    loader: DataLoader,
-    optimizer: torch.optim.Optimizer,
-    criterion: torch.nn.Module,
-    device: torch.device,
-) -> float:
-    <span class="st">"""Single training epoch using AMP. Keeps the GPU fed."""</span>
-    model.train()
-    scaler = <span class="fn">GradScaler</span>()
-    total_loss = <span class="nu">0.0</span>
-
-    <span class="kw">for</span> images, labels <span class="kw">in</span> loader:
-        images, labels = images.to(device), labels.to(device)
-        optimizer.zero_grad(set_to_none=<span class="kw">True</span>)  <span class="cm"># faster than zero_grad()</span>
-
-        <span class="kw">with</span> <span class="fn">autocast</span>():           <span class="cm"># fp16 forward pass</span>
-            outputs = model(images)
-            loss = criterion(outputs, labels)
-
-        scaler.scale(loss).backward()
-        scaler.step(optimizer)
-        scaler.update()
-        total_loss += loss.item()
-
-    <span class="kw">return</span> total_loss / len(loader)</pre>
-        </div>
-      </div>
-      <div class="cv-footer">
-        <div class="cv-meta">● Python · From real projects</div>
-        <a href="https://github.com/Aditya-Khadye" target="_blank" class="cv-gh">View GitHub ↗</a>
-      </div>
+    <div class="sec-eyebrow"><span class="sec-num">04b</span> Case Studies</div>
+    <h2 class="sec-head reveal">How I<br/><em>write code</em></h2>
+    <div class="cs-grid reveal d1">
+      <a href="projects/ar-hud.html" class="cs-card">
+        <div class="cs-num">Swift · visionOS · RealityKit</div>
+        <div class="cs-title">Apple Vision Pro Driver HUD</div>
+        <div class="cs-lang">TelemetryClient.swift · ImmersiveView.swift</div>
+        <div class="cs-desc">UDP binary packet parsing and 3D spatial attachment. Covers <code>withUnsafeBytes</code>, failable inits as parsing gates, and visionOS coordinate ergonomics.</div>
+        <div class="cs-cta">Read case study →</div>
+      </a>
+      <a href="projects/scriptgap.html" class="cs-card">
+        <div class="cs-num">Python · PyTorch · scikit-learn</div>
+        <div class="cs-title">The Script Gap</div>
+        <div class="cs-lang">kmeans_clustering.py · script_similarity_cnn.py</div>
+        <div class="cs-desc">Log-scaled features for K-Means clustering, silhouette-based model selection, and ResNet50 feature extraction for cross-script glyph similarity.</div>
+        <div class="cs-cta">Read case study →</div>
+      </a>
+      <a href="projects/rag-agent.html" class="cs-card">
+        <div class="cs-num">Python · LangChain · FAISS</div>
+        <div class="cs-title">RAG Document Agent</div>
+        <div class="cs-lang">ingest.py · agent.py</div>
+        <div class="cs-desc">Incremental FAISS ingestion without full index rebuilds, dual embedding provider fallback, and tool-calling agent vs. retrieval chain architecture.</div>
+        <div class="cs-cta">Read case study →</div>
+      </a>
+      <a href="projects/doggo.html" class="cs-card">
+        <div class="cs-num">Python · Transformers · Streamlit</div>
+        <div class="cs-title">DOGGO Breed Classifier</div>
+        <div class="cs-lang">doggy.py · app.py</div>
+        <div class="cs-desc">SiglipForImageClassification inference, deterministic argmax vs. sampling, RGB normalization for RGBA inputs, and Streamlit's re-run model for model caching.</div>
+        <div class="cs-cta">Read case study →</div>
+      </a>
     </div>
   </div>
 </section>
@@ -1242,25 +1224,9 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="certs-layout">
       <div class="reveal">
         <h2 class="sec-head">Credentials<br/>that <em>stuck</em></h2>
-        <p style="margin-top:16px;font-size:.93rem;line-height:1.78">Six of them. I chase certs when a topic has a knowledge gap I want to close, not as a collection exercise. The Stanford ML ones shaped how I think about model evaluation. The AWS one I got after realizing I was deploying things without really knowing what I was paying for.</p>
+        <p style="margin-top:16px;font-size:.93rem;line-height:1.78">Seven of them. I chase certs when a topic has a knowledge gap I want to close, not as a collection exercise. The Stanford ML ones shaped how I think about model evaluation. The AWS one I got after realizing I was deploying things without really knowing what I was paying for.</p>
       </div>
       <div class="cert-list reveal d2">
-
-        <div class="cert-row">
-          <div class="cert-left">
-            <div class="cert-ico" style="background:#232F3E;border-color:#232F3E;padding:5px"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" style="width:100%;height:100%;object-fit:contain" alt="AWS"/></div>
-            <div>
-              <div class="cert-name-txt">Machine Learning on AWS</div>
-              <div class="cert-by">Amazon Web Services</div>
-            </div>
-          </div>
-          <div class="cert-right">
-            <div class="cert-yr">2024</div>
-            <div class="cert-badge-tag">✓ Verified</div>
-            <!-- ✏️ Replace # with your credential URL -->
-            <a href="https://www.coursera.org/account/accomplishments/verify/F5NO4SML7HAI" target="_blank" class="cert-link">View ↗</a>
-          </div>
-        </div>
 
         <div class="cert-row">
           <div class="cert-left">
@@ -1274,6 +1240,51 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
             <div class="cert-yr">2026</div>
             <div class="cert-badge-tag">✓ Verified</div>
             <a href="https://www.coursera.org/account/accomplishments/verify/ZQVO0ZA65I00" target="_blank" class="cert-link">View ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-row">
+          <div class="cert-left">
+            <div class="cert-ico" style="background:#1F70C1;border-color:#1F70C1;padding:6px"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" style="width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)" alt="IBM"/></div>
+            <div>
+              <div class="cert-name-txt">CI/CD: Continuous Integration &amp; Delivery</div>
+              <div class="cert-by">IBM / Coursera</div>
+            </div>
+          </div>
+          <div class="cert-right">
+            <div class="cert-yr">2026</div>
+            <div class="cert-badge-tag">✓ Verified</div>
+            <a href="https://www.coursera.org/account/accomplishments/verify/BQ6EPEBWDI54" target="_blank" class="cert-link">View ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-row">
+          <div class="cert-left">
+            <div class="cert-ico" style="background:#fff;border-color:#ddd;padding:4px"><svg viewBox="0 0 24 24" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg></div>
+            <div>
+              <div class="cert-name-txt">Agile &amp; Scrum Project Management</div>
+              <div class="cert-by">Google / Coursera</div>
+            </div>
+          </div>
+          <div class="cert-right">
+            <div class="cert-yr">2025</div>
+            <div class="cert-badge-tag">✓ Verified</div>
+            <a href="https://www.coursera.org/account/accomplishments/verify/ERMAUQKJ4QIU" target="_blank" class="cert-link">View ↗</a>
+          </div>
+        </div>
+
+        <div class="cert-row">
+          <div class="cert-left">
+            <div class="cert-ico" style="background:#232F3E;border-color:#232F3E;padding:5px"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" style="width:100%;height:100%;object-fit:contain" alt="AWS"/></div>
+            <div>
+              <div class="cert-name-txt">Machine Learning on AWS</div>
+              <div class="cert-by">Amazon Web Services</div>
+            </div>
+          </div>
+          <div class="cert-right">
+            <div class="cert-yr">2024</div>
+            <div class="cert-badge-tag">✓ Verified</div>
+            <a href="https://www.coursera.org/account/accomplishments/verify/F5NO4SML7HAI" target="_blank" class="cert-link">View ↗</a>
           </div>
         </div>
 
@@ -1294,21 +1305,6 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 
         <div class="cert-row">
           <div class="cert-left">
-            <div class="cert-ico" style="background:#8C1515;border-color:#8C1515;padding:5px"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Stanford_Cardinal_logo.svg" style="width:100%;height:100%;object-fit:contain" alt="Stanford"/></div>
-            <div>
-              <div class="cert-name-txt">Supervised Machine Learning</div>
-              <div class="cert-by">Stanford University / Coursera</div>
-            </div>
-          </div>
-          <div class="cert-right">
-            <div class="cert-yr">2023</div>
-            <div class="cert-badge-tag">✓ Verified</div>
-            <a href="https://www.coursera.org/account/accomplishments/verify/8PXUXHHKBUER" target="_blank" class="cert-link">View ↗</a>
-          </div>
-        </div>
-
-        <div class="cert-row">
-          <div class="cert-left">
             <div class="cert-ico" style="background:#1F70C1;border-color:#1F70C1;padding:6px"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" style="width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)" alt="IBM"/></div>
             <div>
               <div class="cert-name-txt">Machine Learning with Python</div>
@@ -1324,16 +1320,16 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 
         <div class="cert-row">
           <div class="cert-left">
-            <div class="cert-ico" style="background:#fff;border-color:#ddd;padding:4px"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/240px-Google_%22G%22_logo.svg.png" style="width:100%;height:100%;object-fit:contain" alt="Google"/></div>
+            <div class="cert-ico" style="background:#8C1515;border-color:#8C1515;padding:5px"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Stanford_Cardinal_logo.svg" style="width:100%;height:100%;object-fit:contain" alt="Stanford"/></div>
             <div>
-              <div class="cert-name-txt">Agile &amp; Scrum Project Management</div>
-              <div class="cert-by">Google / Coursera</div>
+              <div class="cert-name-txt">Supervised Machine Learning</div>
+              <div class="cert-by">Stanford University / Coursera</div>
             </div>
           </div>
           <div class="cert-right">
-            <div class="cert-yr">2025</div>
+            <div class="cert-yr">2023</div>
             <div class="cert-badge-tag">✓ Verified</div>
-            <a href="https://www.coursera.org/account/accomplishments/verify/ERMAUQKJ4QIU" target="_blank" class="cert-link">View ↗</a>
+            <a href="https://www.coursera.org/account/accomplishments/verify/8PXUXHHKBUER" target="_blank" class="cert-link">View ↗</a>
           </div>
         </div>
 
