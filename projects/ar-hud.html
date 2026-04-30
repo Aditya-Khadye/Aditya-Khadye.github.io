@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Apple Vision Pro Driver HUD — Aditya Khadye</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="project.css"/>
+</head>
+<body>
+<div class="bg-breath"></div>
+
+<nav class="proj-nav">
+  <a href="../index.html#projects" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Work
+  </a>
+  <button id="theme-toggle" aria-label="Toggle theme">☀</button>
+</nav>
+
+<header class="proj-header container reveal">
+  <div class="proj-eyebrow">01 / Research · visionOS · On-Device</div>
+  <h1 class="proj-title">Apple Vision Pro<br/><em>Driver HUD</em></h1>
+  <p class="proj-subtitle">A live telemetry overlay for simracing on visionOS. The app bridges a UDP data stream from a simulator, parses raw binary packets on the fly, and pins a SwiftUI HUD at a fixed point in 3D space using RealityKit anchoring.</p>
+  <div class="tech-stack">
+    <span class="tech-pill">Swift</span>
+    <span class="tech-pill">visionOS</span>
+    <span class="tech-pill">RealityKit</span>
+    <span class="tech-pill">SwiftUI</span>
+    <span class="tech-pill">UDP / Network.framework</span>
+    <span class="tech-pill">OutGauge Protocol</span>
+  </div>
+  <a href="https://github.com/Aditya-Khadye/MonotypeHUD" target="_blank" class="proj-github">↗ GitHub</a>
+</header>
+
+<section class="code-section container">
+  <div class="section-label reveal">Code walkthrough</div>
+  <div class="tabs reveal">
+    <button class="tab-btn active" onclick="switchTab(this,'t1')">TelemetryClient.swift</button>
+    <button class="tab-btn" onclick="switchTab(this,'t2')">ImmersiveView.swift</button>
+  </div>
+
+  <div class="tab-panel active" id="t1">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p>The binary OutGauge protocol is a C struct sent over UDP — bytes at specific offsets map to speed, RPM, gear, etc. <strong>The failable <code>init?(data:)</code> is the parsing gate</strong>: if the packet is too short or malformed, the struct simply doesn't exist. No error handling boilerplate downstream, no sentinel values to check. The caller gets an <code>OutGaugePacket</code> or nothing.</p>
+      <p><strong><code>withUnsafeBytes { buf.load(fromByteOffset:as:) }</code></strong> reads raw memory layout matching the C struct byte-for-byte. It's the Swift equivalent of a C cast — necessary when you're talking to a protocol you don't own. The <code>UInt32(littleEndian:)</code> wrapping handles endianness explicitly rather than relying on platform defaults.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">TelemetryClient.swift</span>
+        <span class="code-lang">Swift</span>
+      </div>
+      <pre id="pre-t1"><code></code></pre>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="t2">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p><strong><code>hud.position = [0, 1.35, -1.0]</code></strong> is not a magic number — it comes from Apple's visionOS HIG: 1.35 m above the floor puts the overlay at eye level for an average seated user, and −1.0 m forward places it at a comfortable reading distance without blocking the view of the room.</p>
+      <p>The <strong><code>Attachment(id: "hud")</code></strong> API is the bridge between SwiftUI and RealityKit's 3D space. The SwiftUI view tree (VStack, Text, etc.) lives in the 2D world but gets anchored as a 3D entity. The <strong><code>@EnvironmentObject</code></strong> chain means the HUD auto-updates whenever <code>TelemetryClient</code> publishes new speed/RPM — no polling loop, no manual refresh.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">ImmersiveView.swift</span>
+        <span class="code-lang">Swift</span>
+      </div>
+      <pre id="pre-t2"><code></code></pre>
+    </div>
+  </div>
+</section>
+
+<footer class="proj-footer container">
+  <a href="../index.html#projects">← Back to all work</a>
+  <span>Aditya Khadye</span>
+</footer>
+
+<!-- raw code stored as textarea text — browser won't parse contents as HTML -->
+<textarea id="src-t1" hidden>import Foundation
+import Network
+import Combine
+
+struct OutGaugePacket {
+    let speedMph: Double
+    let rpm: Double
+
+    init?(data: Data) {
+        guard data.count >= 20 else { return nil }
+
+        func readFloat32LE(_ offset: Int) -> Float {
+            let raw: UInt32 = data.withUnsafeBytes { buf in
+                buf.load(fromByteOffset: offset, as: UInt32.self)
+            }
+            return Float(bitPattern: UInt32(littleEndian: raw))
+        }
+
+        let speedMs = readFloat32LE(12)
+        let rpmRaw  = readFloat32LE(16)
+
+        self.speedMph = Double(speedMs * 2.23694)
+        self.rpm = Double(rpmRaw)
+    }
+}
+
+final class TelemetryClient: ObservableObject {
+    @Published var speedMph: Double = 0
+    @Published var rpm: Double = 0
+    @Published var packets: Int = 0
+
+    private var listener: NWListener?
+
+    func startListening(port: UInt16 = 4444) {
+        guard listener == nil else { return }
+
+        do {
+            let nwPort = NWEndpoint.Port(rawValue: port)!
+            let listener = try NWListener(using: .udp, on: nwPort)
+            self.listener = listener
+
+            listener.stateUpdateHandler = { state in
+                print("UDP listener state: \(state)")
+            }
+
+            listener.newConnectionHandler = { [weak self] connection in
+                connection.start(queue: .global(qos: .userInitiated))
+                self?.receive(on: connection)
+            }
+
+            listener.start(queue: .global(qos: .userInitiated))
+        } catch {
+            print("Failed to start UDP listener: \(error)")
+        }
+    }
+
+    private func receive(on connection: NWConnection) {
+        connection.receiveMessage { [weak self] data, _, _, error in
+            if let data = data,
+               let packet = OutGaugePacket(data: data) {
+                DispatchQueue.main.async {
+                    self?.speedMph = packet.speedMph
+                    self?.rpm = packet.rpm
+                    self?.packets = (self?.packets ?? 0) + 1
+                }
+            }
+
+            if error == nil {
+                self?.receive(on: connection)
+            } else {
+                print("UDP receive error: \(String(describing: error))")
+            }
+        }
+    }
+}</textarea>
+
+<textarea id="src-t2" hidden>import SwiftUI
+import RealityKit
+import RealityKitContent
+
+struct ImmersiveView: View {
+    @Environment(AppModel.self) var appModel
+    @EnvironmentObject var telemetry: TelemetryClient
+
+    var body: some View {
+        RealityView { content, attachments in
+            if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
+                content.add(immersiveContentEntity)
+            }
+
+            // Anchor the SwiftUI HUD as a 3D entity in front of the user.
+            // y=1.35 places it at seated eye level (Apple HIG recommendation).
+            // z=-1.0 is ~arm's length — readable without blocking peripheral vision.
+            if let hud = attachments.entity(for: "hud") {
+                hud.position = [0, 1.35, -1.0]
+                hud.orientation = simd_quatf(angle: 0, axis: [0, 1, 0])
+                content.add(hud)
+            }
+        } attachments: {
+            Attachment(id: "hud") {
+                VStack(spacing: 10) {
+                    Text("BeamNG HUD")
+                        .font(.title3)
+                        .foregroundStyle(.secondary)
+
+                    Text("\(telemetry.speedMph, specifier: "%.1f") mph")
+                        .font(.system(size: 54, weight: .bold, design: .rounded))
+
+                    Text("RPM \(Int(telemetry.rpm))")
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+
+                    Text("Packets: \(telemetry.packets)")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(22)
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+            }
+        }
+    }
+}
+
+#Preview(immersionStyle: .progressive) {
+    ImmersiveView()
+        .environment(AppModel())
+        .environmentObject(TelemetryClient())
+}</textarea>
+
+<script>
+(function(){
+  const stored = document.querySelectorAll('[data-theme]');
+  const saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('theme-toggle').textContent = saved === 'dark' ? '☀' : '☾';
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function(){
+  const curr = document.documentElement.getAttribute('data-theme');
+  const next = curr === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀' : '☾';
+});
+
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function hl(raw, lang) {
+  const map = [];
+  const guard = html => { const t = `\x00p${map.length}p\x00`; map.push(html); return t; };
+  let c = raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const wrap = (re, cls) => { c = c.replace(re, m => guard(`<span class="${cls}">${m}</span>`)); };
+
+  if (lang === 'swift') {
+    wrap(/(\/\/[^\n]*)/g, 'cm');
+    wrap(/("(?:[^"\\]|\\.)*")/g, 'st');
+    wrap(/\b(\d+\.?\d*)\b/g, 'nu');
+    'import,struct,class,final,func,var,let,guard,if,else,return,init,nil,true,false,for,in,while,private,public,static,override,protocol,extension,weak,do,throw,throws,async,await,try,catch,self,Self,super,where,switch,case,default,enum,print,Double,Float,Int,Bool,String,Data,DispatchQueue'.split(',').forEach(kw => {
+      wrap(new RegExp(`\\b${kw}\\b`, 'g'), 'kw');
+    });
+    wrap(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 'tp');
+  } else {
+    wrap(/("""[\s\S]*?"""|'''[\s\S]*?''')/g, 'doc');
+    wrap(/(#[^\n]*)/g, 'cm');
+    wrap(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, 'st');
+    wrap(/@(\w+)/g, 'dec');
+    wrap(/\b(\d+\.?\d*)\b/g, 'nu');
+    'import,from,def,class,return,if,elif,else,for,in,while,with,as,try,except,finally,raise,pass,None,True,False,not,and,or,lambda,yield,async,await,global,nonlocal,del,assert,break,continue,self'.split(',').forEach(kw => {
+      wrap(new RegExp(`\\b${kw}\\b`, 'g'), 'kw');
+    });
+    wrap(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 'tp');
+  }
+  return c.replace(/\x00p(\d+)p\x00/g, (_, i) => map[+i]);
+}
+
+function renderCode(srcId, preId, lang) {
+  const raw = document.getElementById(srcId).value;
+  document.querySelector(`#${preId} code`).innerHTML = hl(raw.trim(), lang);
+}
+
+renderCode('src-t1', 'pre-t1', 'swift');
+renderCode('src-t2', 'pre-t2', 'swift');
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

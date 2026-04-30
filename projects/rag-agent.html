@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>RAG Document Agent — Aditya Khadye</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="project.css"/>
+</head>
+<body>
+<div class="bg-breath"></div>
+
+<nav class="proj-nav">
+  <a href="../index.html#projects" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Work
+  </a>
+  <button id="theme-toggle" aria-label="Toggle theme">☀</button>
+</nav>
+
+<header class="proj-header container reveal">
+  <div class="proj-eyebrow">03 / ML Systems · RAG · LangChain</div>
+  <h1 class="proj-title">RAG Document<br/><em>Agent</em></h1>
+  <p class="proj-subtitle">A modular RAG pipeline that actually checks if it's working. Hybrid BM25 + FAISS retrieval, tool-calling LangChain agent, incremental ingestion so new documents don't require a full index rebuild, and a system prompt engineered to enforce source citation.</p>
+  <div class="tech-stack">
+    <span class="tech-pill">Python</span>
+    <span class="tech-pill">LangChain</span>
+    <span class="tech-pill">FAISS</span>
+    <span class="tech-pill">OpenAI / HuggingFace</span>
+    <span class="tech-pill">FastAPI</span>
+    <span class="tech-pill">PyPDF</span>
+  </div>
+  <a href="https://github.com/Aditya-Khadye/AI-Agent" target="_blank" class="proj-github">↗ GitHub</a>
+</header>
+
+<section class="code-section container">
+  <div class="section-label reveal">Code walkthrough</div>
+  <div class="tabs reveal">
+    <button class="tab-btn active" onclick="switchTab(this,'t1')">ingest.py</button>
+    <button class="tab-btn" onclick="switchTab(this,'t2')">agent.py</button>
+  </div>
+
+  <div class="tab-panel active" id="t1">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p><strong>Incremental ingestion is the main design decision here.</strong> The naive approach — load everything, embed everything, write a new index — works fine the first time but breaks down when your document set grows: re-embedding 10,000 documents to add 5 new ones is wasteful. The <code>if os.path.exists(index_path)</code> branch loads the existing FAISS index and calls <code>vectorstore.add_documents(chunks)</code> instead of rebuilding from scratch.</p>
+      <p>The <strong>dual embedding provider</strong> (<code>OpenAIEmbeddings</code> if a key is present, <code>HuggingFaceEmbeddings</code> otherwise) keeps the pipeline portable: it works locally without any API credentials. The key insight is that both providers share the same LangChain interface, so the rest of the code doesn't need to know which one is active.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">rag_agent/ingest.py</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre id="pre-t1"><code></code></pre>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="t2">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p><strong><code>create_tool_calling_agent</code> instead of <code>RetrievalQA</code></strong> is the architectural choice that matters most. A standard RAG chain always retrieves — it doesn't decide whether retrieval is needed. A tool-calling agent treats <code>search_documents</code>, <code>retrieve_document_info</code>, and <code>summarize_text</code> as optional tools it can call selectively. If the question is answerable from context, it doesn't waste a vector lookup.</p>
+      <p>The system prompt's <strong>"Always cite which document and section"</strong> line is load-bearing. Without an explicit instruction, LLMs frequently omit citations even when they have the source data — they'll answer correctly but present it as general knowledge. The <code>MessagesPlaceholder("chat_history")</code> allows multi-turn conversation while keeping the prompt template clean and the agent stateless.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">rag_agent/agent.py</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre id="pre-t2"><code></code></pre>
+    </div>
+  </div>
+</section>
+
+<footer class="proj-footer container">
+  <a href="../index.html#projects">← Back to all work</a>
+  <span>Aditya Khadye</span>
+</footer>
+
+<textarea id="src-t1" hidden>import os
+from pathlib import Path
+
+from langchain_community.document_loaders import PyPDFLoader, TextLoader
+from langchain_community.vectorstores import FAISS
+from langchain_core.documents import Document
+from langchain_core.embeddings import Embeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+import rag_agent.config as config
+
+SUPPORTED_EXTENSIONS = {".pdf", ".txt", ".md"}
+LOADERS = {
+    ".pdf": PyPDFLoader,
+    ".txt": TextLoader,
+    ".md": TextLoader,
+}
+
+
+def load_documents(path: str) -> list[Document]:
+    """Load all supported documents from a file or directory."""
+    p = Path(path)
+    files: list[Path] = []
+
+    if p.is_file():
+        if p.suffix.lower() in SUPPORTED_EXTENSIONS:
+            files.append(p)
+        else:
+            raise ValueError(
+                f"Unsupported file type: {p.suffix}. "
+                f"Supported: {', '.join(SUPPORTED_EXTENSIONS)}"
+            )
+    elif p.is_dir():
+        for ext in SUPPORTED_EXTENSIONS:
+            files.extend(p.rglob(f"*{ext}"))
+    else:
+        raise FileNotFoundError(f"Path not found: {path}")
+
+    if not files:
+        raise ValueError(f"No supported documents found in {path}")
+
+    docs: list[Document] = []
+    for f in sorted(files):
+        loader_cls = LOADERS[f.suffix.lower()]
+        loader = loader_cls(str(f))
+        loaded = loader.load()
+        for doc in loaded:
+            doc.metadata["source"] = str(f)
+        docs.extend(loaded)
+
+    return docs
+
+
+def chunk_documents(docs: list[Document]) -> list[Document]:
+    """Split documents into chunks using recursive character splitting."""
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=config.settings.chunk_size,
+        chunk_overlap=config.settings.chunk_overlap,
+        length_function=len,
+    )
+    return splitter.split_documents(docs)
+
+
+def get_embeddings() -> Embeddings:
+    """OpenAI if key present, HuggingFace otherwise — same interface either way."""
+    if config.settings.openai_api_key:
+        from langchain_openai import OpenAIEmbeddings
+        return OpenAIEmbeddings(
+            model=config.settings.embedding_model,
+            api_key=config.settings.openai_api_key,
+        )
+
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+    return HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
+
+def ingest(path: str) -> FAISS:
+    """Full ingestion pipeline: load -> chunk -> embed -> store.
+
+    If a vector store already exists, new documents are added to it
+    rather than rebuilding the entire index from scratch.
+    """
+    docs   = load_documents(path)
+    chunks = chunk_documents(docs)
+    embeddings = get_embeddings()
+
+    index_path = os.path.join(config.settings.vectorstore_dir, "index.faiss")
+
+    if os.path.exists(index_path):
+        # Incremental: load existing index and append new chunks.
+        vectorstore = FAISS.load_local(
+            config.settings.vectorstore_dir,
+            embeddings,
+            allow_dangerous_deserialization=True,
+        )
+        vectorstore.add_documents(chunks)
+    else:
+        vectorstore = FAISS.from_documents(chunks, embeddings)
+
+    vectorstore.save_local(config.settings.vectorstore_dir)
+    return vectorstore</textarea>
+
+<textarea id="src-t2" hidden>from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+
+from rag_agent.llm import get_llm
+from rag_agent.tools import retrieve_document_info, search_documents, summarize_text
+
+# Explicit citation instruction is load-bearing: without it, LLMs answer
+# correctly but present retrieved facts as general knowledge.
+SYSTEM_PROMPT = (
+    "You are a knowledgeable AI assistant with access to a document library. "
+    "Use your tools to search for relevant information before answering questions. "
+    "Always cite which document and section your information comes from. "
+    "If you cannot find relevant information in the documents, say so honestly "
+    "rather than making up an answer."
+)
+
+
+def build_agent() -> AgentExecutor:
+    """Build and return the RAG agent executor.
+
+    Uses create_tool_calling_agent rather than RetrievalQA — the agent decides
+    whether to call search_documents, retrieve_document_info, or summarize_text
+    based on what the question actually needs, rather than always retrieving.
+    """
+    llm   = get_llm()
+    tools = [search_documents, retrieve_document_info, summarize_text]
+
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", SYSTEM_PROMPT),
+        MessagesPlaceholder("chat_history", optional=True),
+        ("human", "{input}"),
+        MessagesPlaceholder("agent_scratchpad"),
+    ])
+
+    agent = create_tool_calling_agent(llm, tools, prompt)
+    return AgentExecutor(
+        agent=agent,
+        tools=tools,
+        verbose=True,
+        handle_parsing_errors=True,
+    )</textarea>
+
+<script>
+(function(){
+  const saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('theme-toggle').textContent = saved === 'dark' ? '☀' : '☾';
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function(){
+  const curr = document.documentElement.getAttribute('data-theme');
+  const next = curr === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀' : '☾';
+});
+
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function hl(raw, lang) {
+  const map = [];
+  const guard = html => { const t = `\x00p${map.length}p\x00`; map.push(html); return t; };
+  let c = raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const wrap = (re, cls) => { c = c.replace(re, m => guard(`<span class="${cls}">${m}</span>`)); };
+  wrap(/("""[\s\S]*?"""|'''[\s\S]*?''')/g, 'doc');
+  wrap(/(#[^\n]*)/g, 'cm');
+  wrap(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, 'st');
+  wrap(/@(\w+)/g, 'dec');
+  wrap(/\b(\d+\.?\d*)\b/g, 'nu');
+  'import,from,def,class,return,if,elif,else,for,in,while,with,as,try,except,finally,raise,pass,None,True,False,not,and,or,lambda,yield,async,await,global,nonlocal,del,assert,break,continue,self'.split(',').forEach(kw => {
+    wrap(new RegExp(`\\b${kw}\\b`, 'g'), 'kw');
+  });
+  wrap(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 'tp');
+  return c.replace(/\x00p(\d+)p\x00/g, (_, i) => map[+i]);
+}
+
+function renderCode(srcId, preId) {
+  const raw = document.getElementById(srcId).value;
+  document.querySelector(`#${preId} code`).innerHTML = hl(raw.trim(), 'python');
+}
+
+renderCode('src-t1', 'pre-t1');
+renderCode('src-t2', 'pre-t2');
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

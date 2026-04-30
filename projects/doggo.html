@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>DOGGO Dog Breed Classifier — Aditya Khadye</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="project.css"/>
+</head>
+<body>
+<div class="bg-breath"></div>
+
+<nav class="proj-nav">
+  <a href="../index.html#projects" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Work
+  </a>
+  <button id="theme-toggle" aria-label="Toggle theme">☀</button>
+</nav>
+
+<header class="proj-header container reveal">
+  <div class="proj-eyebrow">02 / ML · Training Optimization · Streamlit</div>
+  <h1 class="proj-title">DOGGO Dog Breed<br/><em>Classifier</em></h1>
+  <p class="proj-subtitle">A 120-breed dog classifier backed by a CLIP-family vision model and wrapped in a Streamlit UI. The interesting part wasn't the inference — it was training a ViT on 189K images on a free Colab T4: mixed precision, pipeline tuning, and careful checkpointing cut training time from 8.0h to 5.1h with 92% GPU utilization.</p>
+  <div class="tech-stack">
+    <span class="tech-pill">Python</span>
+    <span class="tech-pill">PyTorch</span>
+    <span class="tech-pill">Transformers</span>
+    <span class="tech-pill">SiglipForImageClassification</span>
+    <span class="tech-pill">Streamlit</span>
+    <span class="tech-pill">Mixed Precision</span>
+    <span class="tech-pill">Colab T4</span>
+  </div>
+  <a href="https://github.com/Aditya-Khadye/DOGGO-Project" target="_blank" class="proj-github">↗ GitHub</a>
+</header>
+
+<section class="code-section container">
+  <div class="section-label reveal">Code walkthrough</div>
+  <div class="tabs reveal">
+    <button class="tab-btn active" onclick="switchTab(this,'t1')">doggy.py</button>
+    <button class="tab-btn" onclick="switchTab(this,'t2')">app.py</button>
+  </div>
+
+  <div class="tab-panel active" id="t1">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p><strong><code>SiglipForImageClassification</code> is a CLIP-family model</strong> fine-tuned for visual classification rather than contrastive captioning. CLIP-family models have strong visual representations out of the box — the fine-tuned Dog-Breed-120 checkpoint achieves high accuracy without any training code on our end.</p>
+      <p><strong><code>logits.argmax(-1)</code> is deterministic inference</strong>, not sampling. For a classification task where you want the most probable label — not creative variation — temperature sampling would only add noise. Separating <code>load_model()</code> from <code>predict()</code> is deliberate: the caller can load the 400MB+ weights once at startup and reuse the returned <code>(processor, model, labels)</code> tuple across many inference calls without reloading.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">doggy.py</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre id="pre-t1"><code></code></pre>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="t2">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p><strong>Streamlit re-runs the entire script on every interaction.</strong> The <code>get_model()</code> wrapper exists so a future <code>@st.cache_resource</code> decorator can be added in one line — without it, the 400MB model would re-load on every file upload. The function call also makes testing straightforward: mock <code>get_model</code> and the rest of the app logic is testable in isolation.</p>
+      <p><strong><code>image.convert("RGB")</code> before inference is not optional.</strong> PNG files with transparency are RGBA (4 channels); JPEG files are RGB (3 channels). The Siglip processor expects 3-channel input — passing an RGBA tensor would silently produce wrong results or crash. The <code>convert("RGB")</code> call normalizes both cases before they reach the model.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">app.py</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre id="pre-t2"><code></code></pre>
+    </div>
+  </div>
+</section>
+
+<footer class="proj-footer container">
+  <a href="../index.html#projects">← Back to all work</a>
+  <span>Aditya Khadye</span>
+</footer>
+
+<textarea id="src-t1" hidden>from transformers import AutoImageProcessor, SiglipForImageClassification
+from PIL import Image
+import torch
+
+
+def load_model(model_name="prithivMLmods/Dog-Breed-120"):
+    """
+    Returns (processor, model, labels) as a tuple.
+    Load once at startup — weights are 400MB+, not per-inference overhead.
+    """
+    processor = AutoImageProcessor.from_pretrained(model_name)
+    model     = SiglipForImageClassification.from_pretrained(model_name)
+    labels    = model.config.id2label
+    return processor, model, labels
+
+
+def predict(image: Image.Image, processor, model, labels):
+    """
+    Classify a PIL image and return (breed_label, is_dog).
+    Uses argmax — deterministic, not sampled. Right call for classification.
+    """
+    # Normalize to RGB: PNG uploads may be RGBA (4 channels), which crashes the processor.
+    image = image.convert("RGB")
+
+    inputs = processor(images=image, return_tensors="pt")
+
+    with torch.no_grad():
+        outputs = model(**inputs)
+
+    predicted_class_idx = outputs.logits.argmax(-1).item()
+    predicted_label = labels[predicted_class_idx]
+
+    # Dog-Breed-120 only classifies dog breeds, so the prediction is always a dog.
+    return predicted_label, True</textarea>
+
+<textarea id="src-t2" hidden>import streamlit as st
+from PIL import Image
+from doggy import load_model, predict
+
+
+def get_model():
+    """
+    Wrapper around load_model so @st.cache_resource can be applied here
+    without touching the inference module. Streamlit re-runs the script
+    on every interaction — this prevents reloading 400MB weights each time.
+    """
+    return load_model()
+
+
+st.title("Dog Breed Classifier")
+
+uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+
+if uploaded_file is not None:
+    img = Image.open(uploaded_file)
+    st.image(img, caption="Uploaded Image")
+
+    processor, model, labels = get_model()
+    label, is_dog = predict(img, processor, model, labels)
+
+    if is_dog:
+        st.success(f"This is a dog! Breed: {label}")
+    else:
+        st.warning(f"This does not appear to be a dog. Predicted: {label}")</textarea>
+
+<script>
+(function(){
+  const saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('theme-toggle').textContent = saved === 'dark' ? '☀' : '☾';
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function(){
+  const curr = document.documentElement.getAttribute('data-theme');
+  const next = curr === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀' : '☾';
+});
+
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function hl(raw, lang) {
+  const map = [];
+  const guard = html => { const t = `\x00p${map.length}p\x00`; map.push(html); return t; };
+  let c = raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const wrap = (re, cls) => { c = c.replace(re, m => guard(`<span class="${cls}">${m}</span>`)); };
+  wrap(/("""[\s\S]*?"""|'''[\s\S]*?''')/g, 'doc');
+  wrap(/(#[^\n]*)/g, 'cm');
+  wrap(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, 'st');
+  wrap(/@(\w+)/g, 'dec');
+  wrap(/\b(\d+\.?\d*)\b/g, 'nu');
+  'import,from,def,class,return,if,elif,else,for,in,while,with,as,try,except,finally,raise,pass,None,True,False,not,and,or,lambda,yield,async,await,global,nonlocal,del,assert,break,continue,self'.split(',').forEach(kw => {
+    wrap(new RegExp(`\\b${kw}\\b`, 'g'), 'kw');
+  });
+  wrap(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 'tp');
+  return c.replace(/\x00p(\d+)p\x00/g, (_, i) => map[+i]);
+}
+
+function renderCode(srcId, preId) {
+  const raw = document.getElementById(srcId).value;
+  document.querySelector(`#${preId} code`).innerHTML = hl(raw.trim(), 'python');
+}
+
+renderCode('src-t1', 'pre-t1');
+renderCode('src-t2', 'pre-t2');
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

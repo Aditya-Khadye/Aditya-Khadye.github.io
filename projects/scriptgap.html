@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Script Gap — Aditya Khadye</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="project.css"/>
+</head>
+<body>
+<div class="bg-breath"></div>
+
+<nav class="proj-nav">
+  <a href="../index.html#projects" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Work
+  </a>
+  <button id="theme-toggle" aria-label="Toggle theme">☀</button>
+</nav>
+
+<header class="proj-header container reveal">
+  <div class="proj-eyebrow">05 / Research · ML · Typography</div>
+  <h1 class="proj-title">The Script<br/><em>Gap</em></h1>
+  <p class="proj-subtitle">A research tool built for Monotype to identify which of the world's writing systems are most underserved by current typeface libraries. Combines web exposure data (Google CrUX / BigQuery), font support counts, visual diversity scores (ViT embeddings), and glyph complexity metrics — then runs K-Means clustering to tier scripts by urgency.</p>
+  <div class="tech-stack">
+    <span class="tech-pill">Python</span>
+    <span class="tech-pill">PyTorch</span>
+    <span class="tech-pill">ResNet50</span>
+    <span class="tech-pill">scikit-learn K-Means</span>
+    <span class="tech-pill">fontTools</span>
+    <span class="tech-pill">BigQuery / CrUX</span>
+    <span class="tech-pill">Dash / Plotly</span>
+  </div>
+  <a href="https://github.com/Aditya-Khadye/TheScriptGap" target="_blank" class="proj-github">↗ GitHub</a>
+</header>
+
+<section class="code-section container">
+  <div class="section-label reveal">Code walkthrough</div>
+  <div class="tabs reveal">
+    <button class="tab-btn active" onclick="switchTab(this,'t1')">prepare_features()</button>
+    <button class="tab-btn" onclick="switchTab(this,'t2')">run_kmeans() + select_k()</button>
+    <button class="tab-btn" onclick="switchTab(this,'t3')">CNNFeatureExtractor</button>
+  </div>
+
+  <div class="tab-panel active" id="t1">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p>Web exposure spans orders of magnitude — Arabic gets hundreds of millions of page views; Telugu gets tens of thousands. <strong>Without log-scaling, K-Means distance is dominated by the two count features</strong>, and the other dimensions (visual complexity, font diversity) contribute almost nothing to cluster assignment. <code>np.log1p</code> compresses the range while preserving relative ordering.</p>
+      <p><strong>StandardScaler after log-scaling</strong> is the second step: even after logging, exposure and support still have different scales. Z-score normalization ensures all four indices — exposure, support, complexity, diversity — pull equal weight in the Euclidean distance calculation that K-Means uses. The code's inline docstring explains the reasoning, so someone running this six months later doesn't have to re-derive it.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">final_model/kmeans_clustering.py — prepare_features()</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre id="pre-t1"><code></code></pre>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="t2">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p>With only 8 data points (8 writing systems), over-clustering is a real risk — k=4 would give clusters of 1–2 scripts, too granular to be meaningful. <strong>Silhouette score automatically penalizes both under-fitting and over-fitting</strong>, so it's used to pick k from the range 2–5 rather than fixing k up front.</p>
+      <p>The <strong>"prefer simpler if within 0.05"</strong> tie-breaker in <code>select_k()</code> is a principled Occam's razor: if k=2 achieves nearly the same silhouette as k=3, the simpler model is more defensible to present to stakeholders. The 0.05 threshold was chosen to be meaningful but not so tight that it always forces the minimum k.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">final_model/kmeans_clustering.py — run_kmeans() + select_k()</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre id="pre-t2"><code></code></pre>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="t3">
+    <div class="takeaway">
+      <div class="takeaway-label">Why this code</div>
+      <p>Three backbone models were benchmarked — ResNet18 (similarity range 0.83–0.91), ConvNeXt-Tiny (0.81–0.93), and ResNet50 (0.75–0.98). <strong>ResNet50 was chosen because it produced the widest and most stable spread</strong>, which matters here: we need the model to actually distinguish between Latin (well-represented) and scripts like Telugu (sparse, visually distinct). A compressed range would collapse that signal.</p>
+      <p><strong>L2 normalization after the global average pool</strong> converts the 2048-dim embedding to a unit vector, so the dot product between two embeddings equals cosine similarity — a geometry-independent measure that doesn't penalize shorter vectors. <strong>Each font is averaged over all its rendered glyphs</strong>, so a single font's "embedding" represents the overall visual character of that writing system's typeface, not just one glyph.</p>
+    </div>
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="code-filename">similarity_research/script_similarity_cnn.py — CNNFeatureExtractor</span>
+        <span class="code-lang">Python</span>
+      </div>
+      <pre id="pre-t3"><code></code></pre>
+    </div>
+  </div>
+</section>
+
+<footer class="proj-footer container">
+  <a href="../index.html#projects">← Back to all work</a>
+  <span>Aditya Khadye</span>
+</footer>
+
+<textarea id="src-t1" hidden>def prepare_features(master: pd.DataFrame) -> tuple:
+    """
+    Select and standardize features for K-Means.
+
+    Features:
+        log_exposure    — Log-scaled CrUX web exposure
+        log_support     — Log-scaled Google Fonts family count
+        complexity      — Infrastructure complexity (0-1, fontTools)
+        diversity_index — Visual diversity of fonts (0-1, ViT)
+
+    Why log-scale exposure and support?
+        Raw values span orders of magnitude. Log compresses the range
+        while preserving relative ordering. Without this, K-Means Euclidean
+        distance would be dominated by these two raw count features.
+
+    Why StandardScaler?
+        After log-scaling, features still have different ranges. Z-score
+        normalization (mean=0, std=1) ensures all four indices contribute
+        equally to the clustering.
+    """
+    master = master.copy()
+    master["log_exposure"] = np.log1p(master["exposure"])
+    master["log_support"]  = np.log1p(master["support"])
+
+    feature_cols = ["log_exposure", "log_support", "complexity", "diversity_index"]
+    X_raw = master[feature_cols].values
+
+    scaler = StandardScaler()
+    X = scaler.fit_transform(X_raw)
+
+    logger.info(f"Features: {feature_cols}")
+    logger.info(f"Means post-scaling: {X.mean(axis=0).round(3)}")
+    logger.info(f"Stds  post-scaling: {X.std(axis=0).round(3)}")
+
+    return X, feature_cols, scaler</textarea>
+
+<textarea id="src-t2" hidden>def run_kmeans(X: np.ndarray, scripts: list, k_range=range(2, 6)) -> dict:
+    """
+    Run K-Means for k = 2, 3, 4, 5 and evaluate with silhouette score.
+
+    With only 8 scripts, k=4 or 5 would give clusters of 1-2 scripts —
+    too granular to be meaningful. Silhouette score automatically penalizes
+    over-clustering.
+    """
+    logger.info(f"Running K-Means for k = {list(k_range)}...")
+    results = {}
+
+    for k in k_range:
+        km = KMeans(n_clusters=k, n_init=100, max_iter=1000, random_state=42)
+        labels = km.fit_predict(X)
+
+        sil_avg     = silhouette_score(X, labels)
+        sil_samples = silhouette_samples(X, labels)
+
+        results[k] = {
+            "kmeans":               km,
+            "labels":               labels,
+            "inertia":              km.inertia_,
+            "silhouette_avg":       sil_avg,
+            "silhouette_per_script": dict(zip(scripts, sil_samples.tolist())),
+            "centroids":            km.cluster_centers_,
+        }
+        logger.info(f"  k={k}: silhouette={sil_avg:.3f}, inertia={km.inertia_:.2f}")
+
+    return results
+
+
+def select_k(results: dict) -> int:
+    """Select k with best silhouette. Prefer simpler model if within 0.05."""
+    best_k   = max(results, key=lambda k: results[k]["silhouette_avg"])
+    best_sil = results[best_k]["silhouette_avg"]
+
+    for k in sorted(results):
+        if k < best_k and results[k]["silhouette_avg"] >= best_sil - 0.05:
+            logger.info(f"  Preferring simpler k={k} (within 0.05 of best)")
+            best_k = k
+            break
+
+    logger.info(f"  Optimal k={best_k} (silhouette={results[best_k]['silhouette_avg']:.3f})")
+    return best_k</textarea>
+
+<textarea id="src-t3" hidden># We tested ResNet50, ResNet18 (range: 0.83-0.91) and ConvNeXt-Tiny (range: 0.81-0.93).
+# ResNet50 gave the most stable and widest similarity spread, so it's the final backbone.
+
+class CNNFeatureExtractor:
+    def __init__(self, device: str = "cpu"):
+        self.device = torch.device(device)
+
+        # Strip the classification head — keep only the feature extractor.
+        # Output is a 2048-dim vector from the global average pool.
+        backbone = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
+        self.model = nn.Sequential(*list(backbone.children())[:-1])
+
+        self.model.eval()
+        for param in self.model.parameters():
+            param.requires_grad = False
+        self.model.to(self.device)
+
+        self.transform = transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            # Grayscale glyphs rendered as L-mode images — expand to 3 channels.
+            transforms.Lambda(
+                lambda x: x.repeat(3, 1, 1) if x.shape[0] == 1 else x
+            ),
+            transforms.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225],
+            ),
+        ])
+
+    @torch.no_grad()
+    def extract_batch(self, images: List[Image.Image], batch_size: int = 32) -> np.ndarray:
+        outputs = []
+        for i in range(0, len(images), batch_size):
+            batch_imgs = images[i:i + batch_size]
+            tensors = torch.stack([self.transform(img) for img in batch_imgs]).to(self.device)
+
+            embeddings = self.model(tensors).cpu().numpy()
+            embeddings = embeddings.reshape(embeddings.shape[0], -1)
+
+            # L2 normalize — converts to unit vectors so dot product = cosine similarity.
+            norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
+            norms[norms == 0] = 1
+            embeddings = embeddings / norms
+            outputs.append(embeddings)
+
+        return np.vstack(outputs)
+
+
+def compute_similarity(script_a: np.ndarray, script_b: np.ndarray) -> float:
+    """
+    Average pairwise cosine similarity between two sets of font embeddings.
+    Each font is already represented by the mean of its glyph embeddings,
+    so this captures script-level visual similarity, not font-level.
+    """
+    sims = script_a @ script_b.T
+    return float(np.mean(sims))</textarea>
+
+<script>
+(function(){
+  const saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('theme-toggle').textContent = saved === 'dark' ? '☀' : '☾';
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function(){
+  const curr = document.documentElement.getAttribute('data-theme');
+  const next = curr === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀' : '☾';
+});
+
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function hl(raw, lang) {
+  const map = [];
+  const guard = html => { const t = `\x00p${map.length}p\x00`; map.push(html); return t; };
+  let c = raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const wrap = (re, cls) => { c = c.replace(re, m => guard(`<span class="${cls}">${m}</span>`)); };
+
+  if (lang === 'swift') {
+    wrap(/(\/\/[^\n]*)/g, 'cm');
+    wrap(/("(?:[^"\\]|\\.)*")/g, 'st');
+    wrap(/\b(\d+\.?\d*)\b/g, 'nu');
+    'import,struct,class,final,func,var,let,guard,if,else,return,init,nil,true,false,for,in,while,private,public,static,override,protocol,extension,weak,do,throw,throws,async,await,try,catch,self,Self,super,where,switch,case,default,enum,print'.split(',').forEach(kw => {
+      wrap(new RegExp(`\\b${kw}\\b`, 'g'), 'kw');
+    });
+    wrap(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 'tp');
+  } else {
+    wrap(/("""[\s\S]*?"""|'''[\s\S]*?''')/g, 'doc');
+    wrap(/(#[^\n]*)/g, 'cm');
+    wrap(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, 'st');
+    wrap(/@(\w+)/g, 'dec');
+    wrap(/\b(\d+\.?\d*)\b/g, 'nu');
+    'import,from,def,class,return,if,elif,else,for,in,while,with,as,try,except,finally,raise,pass,None,True,False,not,and,or,lambda,yield,async,await,global,nonlocal,del,assert,break,continue,self'.split(',').forEach(kw => {
+      wrap(new RegExp(`\\b${kw}\\b`, 'g'), 'kw');
+    });
+    wrap(/\b([A-Z][a-zA-Z0-9_]*)\b/g, 'tp');
+  }
+  return c.replace(/\x00p(\d+)p\x00/g, (_, i) => map[+i]);
+}
+
+function renderCode(srcId, preId, lang) {
+  const raw = document.getElementById(srcId).value;
+  document.querySelector(`#${preId} code`).innerHTML = hl(raw.trim(), lang);
+}
+
+renderCode('src-t1', 'pre-t1', 'python');
+renderCode('src-t2', 'pre-t2', 'python');
+renderCode('src-t3', 'pre-t3', 'python');
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
