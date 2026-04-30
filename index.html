@@ -111,6 +111,28 @@ p{color:var(--sub);line-height:1.75}
 @media(max-width:768px){.container{padding:0 24px}}
 
 
+/* ── SCROLL PROGRESS ── */
+#scroll-progress{
+  position:fixed;top:0;left:0;height:2px;width:0%;
+  background:linear-gradient(to right,var(--blue),var(--green));
+  z-index:9998;transition:width .1s linear;
+}
+
+/* ── BACK TO TOP ── */
+#back-top{
+  position:fixed;bottom:32px;right:32px;z-index:300;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--card);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:16px;
+  opacity:0;pointer-events:none;
+  transition:all var(--tr);
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+}
+#back-top.visible{opacity:1;pointer-events:all}
+#back-top:hover{border-color:var(--blue);background:var(--blue);transform:translateY(-2px)}
+#back-top:hover::after{filter:brightness(0) invert(1)}
+
 /* ── THEME TOGGLE ── */
 #theme-toggle{
   width:36px;height:36px;border-radius:50%;
@@ -138,30 +160,42 @@ p{color:var(--sub);line-height:1.75}
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   border-bottom:1px solid var(--border);
 }
+[data-theme="light"] #nav.stuck{background:rgba(245,244,240,.92)}
 .nav-logo{font-family:var(--mono);font-size:.8rem;color:var(--sub);letter-spacing:.04em}
 .nav-logo em{color:var(--blue);font-style:normal}
 .nav-links{display:flex;gap:30px;list-style:none}
 .nav-links a{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;transition:color var(--tr)}
 .nav-links a:hover{color:var(--blue)}
-.nav-hire{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:7px 16px;border:1px solid var(--blue);border-radius:4px;color:var(--blue);cursor:pointer;background:transparent;transition:all var(--tr)}
-.nav-hire:hover{background:var(--blue);color:#0D0B09}
+.nav-links a.active{color:var(--blue)}
+.nav-hire{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:7px 16px;border:1px solid var(--blue);border-radius:4px;color:var(--blue);cursor:pointer;background:transparent;transition:all var(--tr);position:relative;}
+.nav-hire:hover{background:var(--blue);color:#0D0B09;box-shadow:0 0 16px rgba(94,184,255,.3)}
 @media(max-width:900px){.nav-links{display:none}}
 
 /* ══════════════════════════════════
    HERO
 ══════════════════════════════════ */
 #hero{
-  min-height:100vh;display:grid;grid-template-columns:1fr 420px;align-items:center;
-  padding-top:60px;position:relative;overflow:hidden;gap:60px;
+  min-height:100vh;display:flex;align-items:center;
+  padding:80px 0 60px;position:relative;overflow:hidden;
 }
-@media(max-width:960px){#hero{grid-template-columns:1fr;padding-bottom:80px}}
+.hero-inner{
+  display:grid;grid-template-columns:1fr 420px;align-items:center;
+  gap:60px;width:100%;
+}
+@media(max-width:960px){.hero-inner{grid-template-columns:1fr;padding-bottom:20px}}
 
-/* Warm ambient glow */
+/* Warm ambient glow — now spans full viewport width */
 #hero::before{
   content:'';position:absolute;
-  width:700px;height:700px;
+  width:900px;height:900px;
   background:radial-gradient(circle,rgba(94,184,255,.12) 0%,transparent 70%);
-  top:-100px;left:-200px;pointer-events:none;
+  top:-200px;left:-300px;pointer-events:none;
+}
+#hero::after{
+  content:'';position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(94,184,255,.06) 0%,transparent 70%);
+  bottom:-100px;right:5%;pointer-events:none;
 }
 
 .hero-left{position:relative;z-index:1}
@@ -178,7 +212,7 @@ p{color:var(--sub);line-height:1.75}
   letter-spacing:-.02em;margin-bottom:28px;
   opacity:0;animation:fadeUp .8s .2s forwards;
 }
-.hero-name span{font-style:italic;color:var(--blue)}
+.hero-name span{font-style:italic;color:var(--blue);text-shadow:0 0 60px rgba(94,184,255,.35)}
 
 .hero-role{
   font-family:var(--mono);font-size:1.15rem;letter-spacing:.08em;text-transform:uppercase;
@@ -347,6 +381,8 @@ section{padding:120px 0}
 .exp-bullets strong{color:var(--text);font-weight:500}
 .exp-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
 .exp-chip{font-family:var(--mono);font-size:.65rem;padding:4px 10px;border-radius:3px;border:1px solid var(--border);color:var(--muted)}
+.exp-item:hover{background:rgba(94,184,255,.025)}
+.exp-item:hover .exp-role{color:var(--blue)}
 
 /* ══════════════════════════════════
    SKILLS — ticker handled above,
@@ -391,10 +427,12 @@ section{padding:120px 0}
   align-items:center;justify-content:center;position:relative;
   border:1px solid var(--border);
 }
-.pv1{background:linear-gradient(135deg,#090D1E,#0F1E4A,#152B6E)}
-.pv2{background:linear-gradient(135deg,#150920,#2D1248,#4A1E78)}
-.pv3{background:linear-gradient(135deg,#091A11,#0F3420,#165230)}
-.pv4{background:linear-gradient(135deg,#1A1009,#3A2010,#5A3018)}
+.pv1{background:linear-gradient(135deg,#090D1E,#0F1E4A,#152B6E);background-size:400% 400%;animation:gradShift 8s ease infinite}
+.pv2{background:linear-gradient(135deg,#150920,#2D1248,#4A1E78);background-size:400% 400%;animation:gradShift 10s ease infinite}
+.pv3{background:linear-gradient(135deg,#091A11,#0F3420,#165230);background-size:400% 400%;animation:gradShift 9s ease infinite}
+.pv4{background:linear-gradient(135deg,#1A1009,#3A2010,#5A3018);background-size:400% 400%;animation:gradShift 11s ease infinite}
+.proj-visual{transition:transform var(--tr)}
+.proj-row:hover .proj-visual{transform:scale(1.01)}
 
 .proj-emoji{font-size:72px;filter:drop-shadow(0 0 40px rgba(255,255,255,.15))}
 .proj-metric-badge{
@@ -600,11 +638,11 @@ section{padding:120px 0}
 /* ══════════════════════════════════
    FOOTER
 ══════════════════════════════════ */
-footer{border-top:1px solid var(--border);padding:26px 0;background:var(--bg)}
+footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 .foot-inner{max-width:1180px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.foot-txt{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+.foot-txt{font-family:var(--mono);font-size:.68rem;color:var(--sub)}
 .foot-txt em{color:var(--blue);font-style:normal}
-.foot-top{font-family:var(--mono);font-size:.68rem;color:var(--muted);background:none;border:none;cursor:pointer;transition:color var(--tr)}
+.foot-top{font-family:var(--mono);font-size:.68rem;color:var(--sub);background:none;border:none;cursor:pointer;transition:color var(--tr);text-decoration:none;display:inline}
 .foot-top:hover{color:var(--blue)}
 
 /* ══════════════════════════════════
@@ -615,6 +653,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;background:var(--bg)}
 @keyframes statusPulse{0%,100%{box-shadow:0 0 0 0 rgba(78,201,148,.5)}60%{box-shadow:0 0 0 6px rgba(78,201,148,0)}}
 @keyframes termBlink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 </style>
 </head>
 <body>
@@ -639,34 +678,36 @@ footer{border-top:1px solid var(--border);padding:26px 0;background:var(--bg)}
 </nav>
 
 <!-- ══ HERO ══ -->
-<section id="hero" class="container" style="padding-top:80px">
-  <div class="hero-left">
-    <div class="hero-status">
-      <span class="status-dot"></span>
-      Available for 2026 roles — AI / ML Engineering
-    </div>
-    <h1 class="hero-name">Aditya<br/><span>Khadye</span></h1>
-    <div class="hero-role"><span class="typed-word" id="hero-typed"></span><span class="typed-cur"></span></div>
-    <p class="hero-bio">
-      Graduate researcher by day, pipeline debugger by night. I've shipped <strong>production ML systems</strong>, saved <strong>$200K/yr</strong> in cloud costs, and built on-device inference for Apple Vision Pro — all before finishing my Master's. Currently researching font readability for underserved global scripts. Python, Swift, PyTorch — and yes, a lot of time in the terminal at odd hours.
-    </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-amber">See my work →</a>
-      <button class="btn btn-ghost" onclick="openDoc('resume')">View resume</button>
-      <a href="https://linkedin.com/in/akhadye" target="_blank" class="btn btn-ghost">Get in touch</a>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <div class="terminal">
-      <div class="term-bar">
-        <div class="term-dot" style="background:#FF5F57"></div>
-        <div class="term-dot" style="background:#FFBD2E"></div>
-        <div class="term-dot" style="background:#28C840"></div>
-        <div class="term-title">aditya@portfolio ~ impact.sh</div>
+<section id="hero">
+  <div class="container hero-inner">
+    <div class="hero-left">
+      <div class="hero-status">
+        <span class="status-dot"></span>
+        Available for 2026 roles — AI / ML Engineering
       </div>
-      <div class="term-body" id="term-body">
-        <!-- filled by JS -->
+      <h1 class="hero-name">Aditya<br/><span>Khadye</span></h1>
+      <div class="hero-role"><span class="typed-word" id="hero-typed"></span><span class="typed-cur"></span></div>
+      <p class="hero-bio">
+        Graduate researcher by day, pipeline debugger by night. I've shipped <strong>production ML systems</strong>, saved <strong>$200K/yr</strong> in cloud costs, and built on-device inference for Apple Vision Pro — all before finishing my Master's. Currently researching font readability for underserved global scripts. Python, Swift, PyTorch — and yes, a lot of time in the terminal at odd hours.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-amber">See my work →</a>
+        <button class="btn btn-ghost" onclick="openDoc('resume')">View resume</button>
+        <a href="#contact" class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="term-dot" style="background:#FF5F57"></div>
+          <div class="term-dot" style="background:#FFBD2E"></div>
+          <div class="term-dot" style="background:#28C840"></div>
+          <div class="term-title">aditya@portfolio ~ impact.sh</div>
+        </div>
+        <div class="term-body" id="term-body">
+          <!-- filled by JS -->
+        </div>
       </div>
     </div>
   </div>
@@ -1306,7 +1347,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;background:var(--bg)}
   <div class="container">
     <div class="sec-eyebrow"><span class="sec-num">08</span> Contact</div>
     <div class="contact-layout">
-      <div class="reveal">
+      <div class="contact-left reveal">
         <h2 class="sec-head">Let's build<br/>something<br/><em>worth building</em></h2>
         <p>I'm looking for <strong>AI / ML Engineering roles in 2026</strong>. Full-time. Ideally somewhere the codebase has opinions, the problems are genuinely hard, and "it works on my machine" isn't an acceptable answer. If that's your team, let's talk.</p>
         <div class="socials">
@@ -1350,12 +1391,19 @@ footer{border-top:1px solid var(--border);padding:26px 0;background:var(--bg)}
 
 <footer>
   <div class="foot-inner">
-    <div class="foot-txt">© 2026 <em>Aditya Khadye</em> — ML / Software Engineer</div>
-    <button class="foot-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ top</button>
+    <div class="foot-txt">© 2026 <em>Aditya Khadye</em> — ML / Software Engineer · Orlando, FL</div>
+    <div style="display:flex;align-items:center;gap:20px">
+      <a href="https://github.com/Aditya-Khadye" target="_blank" class="foot-top">GitHub</a>
+      <a href="https://linkedin.com/in/akhadye" target="_blank" class="foot-top">LinkedIn</a>
+      <button class="foot-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ top</button>
+    </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<div id="scroll-progress"></div>
+<button id="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── Theme toggle ─────────────────────────────────────
 const toggleBtn = document.getElementById('theme-toggle');
 const savedTheme = localStorage.getItem('ak-theme') || 'dark';
@@ -1395,9 +1443,30 @@ function heroType(){
 setTimeout(heroType, 1000);
 
 // ── Scroll behaviors ─────────────────────────────
+const scrollProgress = document.getElementById('scroll-progress');
+const backTop = document.getElementById('back-top');
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+
 window.addEventListener('scroll',()=>{
-  document.getElementById('nav').classList.toggle('stuck',window.scrollY>30);
+  const scrollY = window.scrollY;
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docH > 0 ? (scrollY / docH) * 100 : 0;
+  scrollProgress.style.width = pct + '%';
+
+  document.getElementById('nav').classList.toggle('stuck', scrollY > 30);
+  backTop.classList.toggle('visible', scrollY > 400);
+
+  // Active nav highlight
+  let current = '';
+  sections.forEach(sec => {
+    if (scrollY >= sec.offsetTop - 120) current = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
 });
+
 const ro=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
 },{threshold:.1});
