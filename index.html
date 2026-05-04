@@ -712,7 +712,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       <h1 class="hero-name">Aditya<br/><span>Khadye</span></h1>
       <div class="hero-role"><span class="typed-word" id="hero-typed"></span><span class="typed-cur"></span></div>
       <p class="hero-bio">
-        Graduate researcher by day, pipeline debugger by night. I've shipped <strong>production ML systems</strong>, saved <strong>$200K/yr</strong> in cloud costs, and built on-device inference for Apple Vision Pro — all before finishing my Master's. Currently building transformer pipelines for underserved script analysis — research backed by Google, Adobe, and Monotype. Python, Swift, PyTorch — and yes, a lot of time in the terminal at odd hours.
+        Graduate researcher by day, pipeline debugger by night. I've shipped <strong>production ML systems</strong>, saved <strong>$200K/yr</strong> in cloud costs, and built real-time data pipelines for Apple Vision Pro — all before finishing my Master's. Currently building transformer pipelines for underserved script analysis — research backed by Google, Adobe, and Monotype. Python, Swift, PyTorch — and yes, a lot of time in the terminal at odd hours.
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-amber">See my work →</a>
@@ -911,16 +911,35 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 
     <div>
       <div class="proj-row reveal">
+        <div class="proj-visual pv5">
+          <div class="proj-emoji">✍️</div>
+          <div class="proj-metric-badge">Sponsored · Google · Adobe · Monotype</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-idx">01 / Research · ML · Typography · Active</div>
+          <h3 class="proj-title">ScriptGap — Global Reading Analytics &amp; Transformer Framework</h3>
+          <p class="proj-desc">The flagship of my graduate research. An end-to-end ML framework that ranks the world's writing systems by typographic support — combining Latent Space Analysis of font datasets (OTF) with web reading signals (Google CrUX). The output isn't a paper. It's actionable, data-driven prioritization for Google, Adobe, and Monotype, identifying which underserved scripts deserve R&amp;D investment first.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">LLMs / NLP</span><span class="proj-tag">GCP / BigQuery</span><span class="proj-tag">OpenCV</span><span class="proj-tag">Latent Space Analysis</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-Khadye/TheScriptGap" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="projects/scriptgap.html" class="proj-link pl-ghost">Case study →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-row flip reveal d1">
         <div class="proj-visual pv1">
           <div class="proj-emoji">🥽</div>
           <div class="proj-metric-badge">▲ 40% fewer experiment reruns</div>
         </div>
         <div class="proj-info">
-          <div class="proj-idx">01 / Research · On-Device ML</div>
+          <div class="proj-idx">02 / Research · Real-Time Pipelines</div>
           <h3 class="proj-title">Apple Vision Pro XR Research Platform</h3>
-          <p class="proj-desc">XR research generates a lot of data fast, and most pipelines treat validation as an afterthought. This one doesn't. I built a visionOS + Python workflow where on-device inference sorts and labels session outputs before anything touches downstream analysis — deterministic outputs, replayable runs, schema gates that catch bad sessions before they burn cluster hours. Cut experiment reruns by 40%.</p>
+          <p class="proj-desc">XR research generates a lot of data fast, and most pipelines treat validation as an afterthought. I architected real-time multi-stream data ingestion over TCP — converting raw sensor logs from Apple Vision Pro into analysis-ready datasets for high-fidelity ML experimentation. Schema gates, replayable runs, and validation runbooks cut experiment reruns by 40%.</p>
           <div class="proj-stack">
-            <span class="proj-tag">Swift</span><span class="proj-tag">visionOS</span><span class="proj-tag">Python</span><span class="proj-tag">PyTorch</span><span class="proj-tag">OpenCV</span><span class="proj-tag">TCP</span><span class="proj-tag">Linux</span>
+            <span class="proj-tag">Swift</span><span class="proj-tag">visionOS</span><span class="proj-tag">Python</span><span class="proj-tag">TCP Streaming</span><span class="proj-tag">Slurm + MPI</span><span class="proj-tag">Linux</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/MonotypeHUD" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -929,17 +948,17 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         </div>
       </div>
 
-      <div class="proj-row flip reveal d1">
+      <div class="proj-row reveal d2">
         <div class="proj-visual pv2">
           <div class="proj-emoji">🐕</div>
-          <div class="proj-metric-badge">▲ 36% faster · 92% GPU util</div>
+          <div class="proj-metric-badge">▲ 36% faster · 1,240 img/sec · 92% GPU</div>
         </div>
         <div class="proj-info">
-          <div class="proj-idx">02 / ML · Training Optimization</div>
-          <h3 class="proj-title">ViT Dog Breed Classification</h3>
-          <p class="proj-desc">The model wasn't the hard part — a 189K-image ViT on a free Colab T4 is a hardware problem as much as a ML problem. Mixed precision, input pipeline tuning, careful checkpointing: training went from 8.0h to 5.1h and GPU utilization hit 92%. I find it more satisfying to make constrained hardware sing than to just throw bigger resources at a problem.</p>
+          <div class="proj-idx">03 / ML · Training Performance Optimization</div>
+          <h3 class="proj-title">ViT — Training Performance Optimization</h3>
+          <p class="proj-desc">A 189K-image Vision Transformer on a free Colab T4 — a hardware problem as much as a ML problem. Mixed-precision training and input pipeline tuning pushed throughput to 1,240 images/sec, GPU utilization to 92%, and cut total training time by 36% (8.0h → 5.1h). Wrapped in a Streamlit dog-breed demo because the engineering should be visible, not just the metric.</p>
           <div class="proj-stack">
-            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">Python</span><span class="proj-tag">Mixed Precision</span><span class="proj-tag">Colab T4</span>
+            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">Mixed Precision</span><span class="proj-tag">Input Pipelines</span><span class="proj-tag">Colab T4</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/DOGGO-Project" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -948,17 +967,17 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         </div>
       </div>
 
-      <div class="proj-row reveal d2">
+      <div class="proj-row flip reveal d3">
         <div class="proj-visual pv3">
           <div class="proj-emoji">🔍</div>
           <div class="proj-metric-badge">Low-latency · Hybrid retrieval</div>
         </div>
         <div class="proj-info">
-          <div class="proj-idx">03 / ML Systems · RAG</div>
+          <div class="proj-idx">04 / ML Systems · RAG</div>
           <h3 class="proj-title">Agentic AI RAG System with Guardrails</h3>
-          <p class="proj-desc">Most RAG demos skip the part where you actually check if the system is working. I didn't. Hybrid BM25 + FAISS retrieval, quantized inference for latency, Redis caching — but the real work was the offline evaluation harness and safety guardrails. Packaged modularly because "it works in my notebook" isn't a shipping strategy.</p>
+          <p class="proj-desc">Most RAG demos skip the part where you actually check if the system is working. I didn't. Hybrid retrieval (BM25 + Vector Search), cached summaries, and quantized inference for low-latency Q&amp;A — but the real work was the evaluation guardrails and tool-calling agent design. Packaged modularly because "it works in my notebook" isn't a shipping strategy.</p>
           <div class="proj-stack">
-            <span class="proj-tag">Transformers</span><span class="proj-tag">FAISS + BM25</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Redis</span>
+            <span class="proj-tag">Transformers</span><span class="proj-tag">FAISS</span><span class="proj-tag">FastAPI</span><span class="proj-tag">AWS</span><span class="proj-tag">Redis</span><span class="proj-tag">Gemini / OpenAI</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/AI-Agent" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -967,39 +986,20 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         </div>
       </div>
 
-      <div class="proj-row flip reveal d3">
+      <div class="proj-row reveal d4">
         <div class="proj-visual pv4">
           <div class="proj-emoji">❄️</div>
-          <div class="proj-metric-badge">▲ 31.5% runtime · ▼ 21.8% credits</div>
+          <div class="proj-metric-badge">▲ 39% runtime · $200K/yr saved</div>
         </div>
         <div class="proj-info">
-          <div class="proj-idx">04 / Data Eng · Cost Optimization</div>
-          <h3 class="proj-title">Snowflake Warehouse Tuning</h3>
-          <p class="proj-desc">684 queries, each with a story. I built tooling to read those stories — EXPLAIN plans, a REST API, custom Python profiling — and found the patterns that were quietly bleeding the company. 31.5% average runtime improvement (p95: 24.1%), 21.8% fewer compute credits. The kind of work that doesn't get a demo but absolutely gets noticed on the invoice.</p>
+          <div class="proj-idx">05 / Data Eng · Cost Optimization</div>
+          <h3 class="proj-title">Snowflake ETL Tuning at Travel + Leisure</h3>
+          <p class="proj-desc">Built tooling to read 684 query stories — EXPLAIN plans, REST API instrumentation, custom Python profiling — and found the patterns quietly bleeding the company. SQL tuning, query optimization, and warehouse right-sizing cut Snowflake ETL runtime by 39% and generated $200K/yr in savings. The kind of work that doesn't get a demo but absolutely gets noticed on the invoice.</p>
           <div class="proj-stack">
             <span class="proj-tag">SQL</span><span class="proj-tag">Python</span><span class="proj-tag">Snowflake</span><span class="proj-tag">AWS</span><span class="proj-tag">EXPLAIN</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="proj-row reveal d4">
-        <div class="proj-visual pv5">
-          <div class="proj-emoji">✍️</div>
-          <div class="proj-metric-badge">8 scripts · 4 data sources</div>
-        </div>
-        <div class="proj-info">
-          <div class="proj-idx">05 / Research · ML · Typography</div>
-          <h3 class="proj-title">The Script Gap</h3>
-          <p class="proj-desc">Research tool for Monotype identifying which of the world's writing systems are most underserved by current typeface libraries. Combines Google CrUX web exposure data, font support counts, visual diversity scores (ResNet50 embeddings), and glyph complexity metrics — then uses K-Means clustering with silhouette-based model selection to tier scripts by urgency. Currently in active development.</p>
-          <div class="proj-stack">
-            <span class="proj-tag">Python</span><span class="proj-tag">PyTorch</span><span class="proj-tag">ResNet50</span><span class="proj-tag">scikit-learn</span><span class="proj-tag">BigQuery</span><span class="proj-tag">fontTools</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://github.com/Aditya-Khadye/TheScriptGap" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
-            <a href="projects/scriptgap.html" class="proj-link pl-ghost">Case study →</a>
           </div>
         </div>
       </div>
@@ -1415,10 +1415,8 @@ toggleBtn.addEventListener('click', () => {
 
 // ── Hero typewriter ──────────────────────────────────
 const HERO_TITLES = [
-  'Software Engineer',
-  'ML Engineer',
   'Data Scientist',
-  'Data Engineer',
+  'ML Engineer',
   'Graduate Researcher',
 ];
 let hti=0, hci=0, hdel=false;
@@ -1471,9 +1469,9 @@ document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 const lines=[
   {type:'cmd',text:'run impact.sh'},
   {type:'out',text:'▶ UCF Graduate Research Assistant'},
-  {type:'out',text:'  ↳ On-device inference — Apple Vision Pro'},
-  {type:'out',text:'  ↳ Reduced invalid trials by 35%'},
-  {type:'out',text:'  ↳ Slurm + MPI cluster orchestration','dim':true},
+  {type:'out',text:'  ↳ ScriptGap — Google · Adobe · Monotype'},
+  {type:'out',text:'  ↳ Transformer pipelines · Slurm + MPI'},
+  {type:'out',text:'  ↳ -40% experiment reruns','dim':true},
   {type:'gap'},
   {type:'cmd',text:'query --employer "Travel + Leisure"'},
   {type:'out',text:'▶ Data Science Intern · Summer 2024'},
@@ -1484,7 +1482,7 @@ const lines=[
   {type:'cmd',text:'grep -r "impact" ./training/'},
   {type:'out',text:'✓ ViT throughput    1,240 img/sec'},
   {type:'out',text:'✓ GPU utilisation   92%'},
-  {type:'out',text:'✓ Training time     8.0h → 5.1h','dim':true},
+  {type:'out',text:'✓ Training time     -36% (8.0h → 5.1h)','dim':true},
 ];
 const tbody=document.getElementById('term-body');
 let li=0,ci=0;
@@ -1512,10 +1510,10 @@ setTimeout(typeNext,900);
 
 // ── Ticker tape ───────────────────────────────────
 const items=[
-  ['Python','Primary Lang'],['PyTorch','ML Framework'],['On-Device Inference','Specialty'],
-  ['Snowflake','Data Eng'],['Swift + visionOS','Apple Vision Pro'],['Slurm + MPI','HPC Clusters'],
-  ['$200K','Annual Savings'],['39%','ETL Speedup'],['3.9','Undergrad GPA'],
-  ['Transformers','HuggingFace'],['FAISS + BM25','Hybrid Retrieval'],['Docker','Containers'],
+  ['Python','Primary Lang'],['PyTorch','ML Framework'],['Transformers','Specialty'],
+  ['ScriptGap','Google · Adobe · Monotype'],['Apple Vision Pro','XR Pipelines'],['Slurm + MPI','HPC Clusters'],
+  ['$200K','Annual Savings'],['39%','ETL Speedup'],['1,240 img/sec','ViT Throughput'],
+  ['Snowflake','Data Eng'],['Hugging Face','LLMs'],['Docker','Containers'],
   ['AWS','Cloud'],['FastAPI','Backend'],['Top 5%','IEEE Hackathon'],
 ];
 const full=[...items,...items]; // duplicate for seamless loop
