@@ -692,7 +692,6 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <li><a href="#projects">work</a></li>
     <li><a href="#university">edu</a></li>
     <li><a href="#certifications">certs</a></li>
-    <li><a href="#documents">docs</a></li>
     <li><a href="#contact">contact</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px">
@@ -716,7 +715,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-amber">See my work →</a>
-        <button class="btn btn-ghost" onclick="openDoc('resume')">View resume</button>
+        <a href="resume.pdf" download="Aditya_Khadye_Resume.pdf" class="btn btn-ghost">Download resume ↓</a>
         <a href="#contact" class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Get in touch</a>
       </div>
     </div>
@@ -1045,116 +1044,10 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
   </div>
 </section>
 
-<!-- ══ DOCUMENTS ══ -->
-<section id="documents">
-  <div class="container">
-    <div class="sec-eyebrow"><span class="sec-num">05</span> Documents</div>
-    <h2 class="sec-head reveal">Files worth<br/><em>looking at</em></h2>
-    <div class="doc-list reveal d1">
-
-      <div class="doc-row" onclick="openDoc('resume')">
-        <div class="doc-left">
-          <div class="doc-icon">📄</div>
-          <div>
-            <div class="doc-name">Resume / CV</div>
-            <div class="doc-info">PDF · Aditya Khadye · 2026</div>
-          </div>
-        </div>
-        <div class="doc-right">
-          <a href="resume.pdf" download="Aditya_Khadye_Resume.pdf" class="doc-dl" onclick="event.stopPropagation()">Download ↓</a>
-          <div class="doc-arrow">→</div>
-        </div>
-      </div>
-
-      <div class="doc-row" onclick="openDoc('thesis')">
-        <div class="doc-left">
-          <div class="doc-icon">🎓</div>
-          <div>
-            <div class="doc-name">MS Thesis / Capstone</div>
-            <div class="doc-info">PDF · UCF · In Progress (2026)</div>
-          </div>
-        </div>
-        <div class="doc-right">
-          <a href="javascript:void(0)" class="doc-dl" onclick="event.stopPropagation()" style="opacity:.4;cursor:not-allowed">Download ↓</a>
-          <div class="doc-arrow">→</div>
-        </div>
-      </div>
-
-      <div class="doc-row" onclick="openDoc('research')">
-        <div class="doc-left">
-          <div class="doc-icon">🥽</div>
-          <div>
-            <div class="doc-name">XR Research Report</div>
-            <div class="doc-info">PDF · TRC / MIT2 Lab · 2025</div>
-          </div>
-        </div>
-        <div class="doc-right">
-          <a href="javascript:void(0)" class="doc-dl" onclick="event.stopPropagation()" style="opacity:.4;cursor:not-allowed">Download ↓</a>
-          <div class="doc-arrow">→</div>
-        </div>
-      </div>
-
-      <div class="doc-row" onclick="openDoc('transcript')">
-        <div class="doc-left">
-          <div class="doc-icon">🏛️</div>
-          <div>
-            <div class="doc-name">Academic Transcript</div>
-            <div class="doc-info">PDF · UNF · GPA 3.9 · Official</div>
-          </div>
-        </div>
-        <div class="doc-right">
-          <a href="javascript:void(0)" class="doc-dl" onclick="event.stopPropagation()" style="opacity:.4;cursor:not-allowed">Download ↓</a>
-          <div class="doc-arrow">→</div>
-        </div>
-      </div>
-
-      <div class="doc-row" onclick="openDoc('snowflake')">
-        <div class="doc-left">
-          <div class="doc-icon">❄️</div>
-          <div>
-            <div class="doc-name">Snowflake Tuning Write-up</div>
-            <div class="doc-info">PDF · 684 Queries · Jan 2025</div>
-          </div>
-        </div>
-        <div class="doc-right">
-          <a href="javascript:void(0)" class="doc-dl" onclick="event.stopPropagation()" style="opacity:.4;cursor:not-allowed">Download ↓</a>
-          <div class="doc-arrow">→</div>
-        </div>
-      </div>
-
-      <div class="doc-row" onclick="openDoc('vit')">
-        <div class="doc-left">
-          <div class="doc-icon">🧠</div>
-          <div>
-            <div class="doc-name">ViT Training Report</div>
-            <div class="doc-info">PDF · Apr 2025</div>
-          </div>
-        </div>
-        <div class="doc-right">
-          <a href="javascript:void(0)" class="doc-dl" onclick="event.stopPropagation()" style="opacity:.4;cursor:not-allowed">Download ↓</a>
-          <div class="doc-arrow">→</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Document Modal -->
-<div class="modal-bg" id="docModal">
-  <div class="modal">
-    <div class="modal-head">
-      <div class="modal-ttl" id="modalTitle">Preview</div>
-      <button class="modal-x" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-bd" id="modalBody"></div>
-  </div>
-</div>
-
 <!-- ══ EDUCATION ══ -->
 <section id="university">
   <div class="container">
-    <div class="sec-eyebrow"><span class="sec-num">06</span> Education</div>
+    <div class="sec-eyebrow"><span class="sec-num">05</span> Education</div>
     <h2 class="sec-head reveal">Where I<br/><em>learned to think</em></h2>
     <div class="edu-top">
       <div class="edu-card reveal">
@@ -1219,7 +1112,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 <!-- ══ CERTIFICATIONS ══ -->
 <section id="certifications">
   <div class="container">
-    <div class="sec-eyebrow"><span class="sec-num">07</span> Certifications</div>
+    <div class="sec-eyebrow"><span class="sec-num">06</span> Certifications</div>
     <div class="certs-layout">
       <div class="reveal">
         <h2 class="sec-head">Credentials<br/>that <em>stuck</em></h2>
@@ -1340,7 +1233,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 <!-- ══ CONTACT ══ -->
 <section id="contact">
   <div class="container">
-    <div class="sec-eyebrow"><span class="sec-num">08</span> Contact</div>
+    <div class="sec-eyebrow"><span class="sec-num">07</span> Contact</div>
     <div class="contact-layout">
       <div class="contact-left reveal">
         <h2 class="sec-head">Let's build<br/>something<br/><em>worth building</em></h2>
@@ -1529,37 +1422,6 @@ function switchTab(btn,id){
   btn.classList.add('active');
   document.getElementById(id).classList.add('active');
 }
-
-// ── Document modal ────────────────────────────────
-// ✏️ Add your hosted PDF URLs below (Google Drive /preview links, Dropbox, etc.)
-const DOCS={
-  resume: {title:'Resume / CV', url:'resume.pdf'},
-  thesis:     {title:'MS Thesis',         url:''},
-  research:   {title:'XR Research Report',url:''},
-  transcript: {title:'Academic Transcript',url:''},
-  snowflake:  {title:'Snowflake Tuning',  url:''},
-  vit:        {title:'ViT Training Report',url:''},
-};
-function openDoc(k){
-  const d=DOCS[k];
-  document.getElementById('modalTitle').textContent=d.title;
-  const b=document.getElementById('modalBody');
-  b.innerHTML=d.url
-    ?`<iframe src="${d.url}" title="${d.title}"></iframe>`
-    :`<div class="modal-ph">
-        <div class="big">📄</div>
-        <h3>${d.title}</h3>
-        <p>Add your PDF URL to <code>DOCS['${k}'].url</code> in the script.<br/>Works with Google Drive (/preview), Dropbox, or direct PDF links.</p>
-      </div>`;
-  document.getElementById('docModal').classList.add('open');
-}
-function closeModal(){
-  document.getElementById('docModal').classList.remove('open');
-  setTimeout(()=>{document.getElementById('modalBody').innerHTML='';},300);
-}
-document.getElementById('docModal').addEventListener('click',e=>{
-  if(e.target===document.getElementById('docModal'))closeModal();
-});
 
 
 </script>
