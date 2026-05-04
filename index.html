@@ -388,17 +388,33 @@ section{padding:120px 0}
    SKILLS — ticker handled above,
    plus a structured breakdown
 ══════════════════════════════════ */
-#skills{background:var(--bg2);padding-bottom:80px}
-.skills-layout{display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start}
-@media(max-width:860px){.skills-layout{grid-template-columns:1fr;gap:48px}}
+#skills{background:var(--bg2);padding-bottom:96px}
+.skills-layout{display:flex;flex-direction:column;gap:0}
+.skills-sidebar{
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;
+  padding-bottom:36px;margin-bottom:8px;border-bottom:1px solid var(--border);
+}
+.skills-sidebar .sec-head{font-size:clamp(36px,4.5vw,62px);margin:0}
+.skills-sidebar p{font-size:.93rem;color:var(--sub);line-height:1.78;margin:0;max-width:560px;justify-self:end}
+@media(max-width:760px){
+  .skills-sidebar{grid-template-columns:1fr;gap:20px;align-items:start}
+  .skills-sidebar p{justify-self:start}
+}
 
-.skills-sidebar .sec-head{font-size:clamp(36px,4.5vw,62px)}
-.skills-sidebar p{font-size:.93rem;color:var(--sub);line-height:1.78;margin-top:16px}
-
-.skill-groups{display:flex;flex-direction:column;gap:32px}
+.skill-groups{display:flex;flex-direction:column;gap:0}
+.skill-groups > div{
+  display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center;
+  padding:30px 0;border-bottom:1px solid var(--border);
+  transition:background var(--tr);
+}
+.skill-groups > div:hover{background:rgba(94,184,255,.02)}
+.skill-groups > div:last-child{border-bottom:0}
+@media(max-width:760px){
+  .skill-groups > div{grid-template-columns:1fr;gap:14px;padding:24px 0}
+}
 .sg-label{
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--blue);margin-bottom:12px;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:0;
 }
 .sg-tags{display:flex;flex-wrap:wrap;gap:8px}
 .sg-tag{
@@ -408,6 +424,10 @@ section{padding:120px 0}
 }
 .sg-tag:hover{border-color:var(--blue);color:var(--blue);background:var(--bdim)}
 .sg-tag.hot{border-color:rgba(94,184,255,.35);color:var(--blue);background:var(--bdim2)}
+.sg-yr{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:3px;background:rgba(255,255,255,.06);color:var(--muted);font-size:.66rem;font-weight:500;letter-spacing:.04em}
+.sg-tag.hot .sg-yr{background:rgba(94,184,255,.14);color:var(--blue)}
+[data-theme=light] .sg-yr{background:rgba(0,0,0,.06)}
+[data-theme=light] .sg-tag.hot .sg-yr{background:rgba(45,118,213,.14)}
 
 /* ══════════════════════════════════
    PROJECTS — editorial rows
@@ -853,15 +873,15 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="sec-eyebrow"><span class="sec-num">03</span> Skills</div>
     <div class="skills-layout">
       <div class="skills-sidebar reveal">
-        <h2 class="sec-head">Tools<br/>I trust<br/><em>in prod</em></h2>
+        <h2 class="sec-head">Tools I trust<br/><em>in prod</em></h2>
         <p>Things I've actually debugged at midnight, not just listed on a resume. The blue ones are where I'm strongest — the rest I can navigate and I know what I don't know.</p>
       </div>
       <div class="skill-groups reveal d2">
         <div>
           <div class="sg-label">Languages</div>
           <div class="sg-tags">
-            <span class="sg-tag hot">Python</span><span class="sg-tag hot">SQL (PostgreSQL / Snowflake)</span>
-            <span class="sg-tag">C++</span><span class="sg-tag">Java</span><span class="sg-tag">R</span><span class="sg-tag">Swift</span>
+            <span class="sg-tag hot">Python <span class="sg-yr">5y</span></span><span class="sg-tag hot">SQL (PostgreSQL / Snowflake) <span class="sg-yr">3y</span></span>
+            <span class="sg-tag">C++ <span class="sg-yr">4y</span></span><span class="sg-tag">Java <span class="sg-yr">3y</span></span><span class="sg-tag">R <span class="sg-yr">2y</span></span><span class="sg-tag">Swift <span class="sg-yr">1y</span></span>
           </div>
         </div>
         <div>
