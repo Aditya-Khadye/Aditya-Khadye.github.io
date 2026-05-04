@@ -586,21 +586,54 @@ section{padding:120px 0}
    EDUCATION
 ══════════════════════════════════ */
 #university{background:var(--bg2)}
-.edu-top{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:72px}
-@media(max-width:768px){.edu-top{grid-template-columns:1fr}}
-.edu-card{
-  background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;
-  position:relative;overflow:hidden;transition:border-color var(--tr);
+/* Education vertical timeline */
+.edu-timeline{position:relative;padding-left:52px;margin-bottom:80px;margin-top:32px}
+.edu-timeline::before{
+  content:'';position:absolute;left:13px;top:14px;bottom:14px;width:1px;
+  background:linear-gradient(to bottom,
+    rgba(94,184,255,.15) 0%,
+    rgba(94,184,255,.4) 30%,
+    var(--blue) 100%);
 }
-.edu-card:hover{border-color:var(--border2)}
-.edu-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--blue),transparent)}
-.edu-uni{font-family:var(--mono);font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
-.edu-deg{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--text);margin-bottom:6px;line-height:1.25}
-.edu-dates{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-bottom:16px}
-.edu-gpa{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.72rem;font-weight:500;color:var(--green);background:var(--gdim);padding:5px 12px;border-radius:4px;margin-bottom:16px}
-.edu-points{list-style:none;display:flex;flex-direction:column;gap:7px}
-.edu-points li{font-size:.84rem;color:var(--sub);padding-left:14px;position:relative;line-height:1.5}
+.edu-node{position:relative;padding-bottom:56px;max-width:780px}
+.edu-node:last-child{padding-bottom:0}
+.edu-node::before{
+  content:'';position:absolute;left:-46px;top:6px;width:16px;height:16px;
+  border-radius:50%;background:var(--bg2);border:2px solid var(--blue);
+  transition:all var(--tr);
+}
+.edu-node.current::before{
+  background:var(--blue);
+  box-shadow:0 0 0 5px rgba(94,184,255,.18);
+}
+.edu-period{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+}
+.edu-period .edu-now{color:var(--blue);margin-left:8px;padding:2px 8px;
+  border:1px solid rgba(94,184,255,.35);border-radius:3px;font-size:.62rem}
+.edu-name{
+  font-family:var(--serif);font-size:clamp(28px,3.2vw,38px);font-weight:600;
+  color:var(--text);line-height:1.15;margin:0 0 6px;letter-spacing:-.01em;
+}
+.edu-name em{font-style:italic;color:var(--blue);font-weight:500}
+.edu-meta{font-size:.95rem;color:var(--sub);line-height:1.55;margin-bottom:14px}
+.edu-points{list-style:none;display:flex;flex-direction:column;gap:6px;margin:14px 0 0;padding:0}
+.edu-points li{font-size:.88rem;color:var(--sub);padding-left:14px;position:relative;line-height:1.55}
 .edu-points li::before{content:'·';position:absolute;left:0;color:var(--blue);font-weight:700;font-size:1.1rem;top:-1px}
+.edu-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.edu-tag{
+  font-family:var(--mono);font-size:.66rem;padding:4px 10px;
+  border:1px solid var(--border);border-radius:3px;color:var(--muted);
+  transition:all var(--tr);
+}
+.edu-tag:hover{border-color:var(--blue);color:var(--blue)}
+@media(max-width:640px){
+  .edu-timeline{padding-left:36px}
+  .edu-timeline::before{left:9px}
+  .edu-node::before{left:-31px;width:12px;height:12px}
+  .edu-node.current::before{box-shadow:0 0 0 4px rgba(94,184,255,.18)}
+}
 
 .proj-academic{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
 .pa-card{
@@ -880,7 +913,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div>
           <div class="sg-label">Languages</div>
           <div class="sg-tags">
-            <span class="sg-tag hot">Python <span class="sg-yr">5y</span></span><span class="sg-tag hot">SQL (PostgreSQL / Snowflake) <span class="sg-yr">3y</span></span>
+            <span class="sg-tag hot">Python · Primary</span><span class="sg-tag hot">SQL · Daily</span>
             <span class="sg-tag">C++ <span class="sg-yr">4y</span></span><span class="sg-tag">Java <span class="sg-yr">3y</span></span><span class="sg-tag">R <span class="sg-yr">2y</span></span><span class="sg-tag">Swift <span class="sg-yr">1y</span></span>
           </div>
         </div>
@@ -1085,30 +1118,43 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
   <div class="container">
     <div class="sec-eyebrow"><span class="sec-num">05</span> Education</div>
     <h2 class="sec-head reveal">Where I<br/><em>learned to think</em></h2>
-    <div class="edu-top">
-      <div class="edu-card reveal">
-        <div class="edu-uni">University of Central Florida</div>
-        <div class="edu-deg">M.S. Data Analytics — ML Track</div>
-        <div class="edu-dates">Expected Aug 2026 · Orlando, FL</div>
-        <div class="edu-gpa">🎓 GPA 3.8</div>
-        <ul class="edu-points">
-          <li>Graduate Research Assistant — CECS / IE Dept.</li>
-          <li>Hack@UCF CTF workshops</li>
-          <li>AI Club Kaggle Sprint</li>
-          <li>Focus: on-device inference, ML systems, distributed computing</li>
-        </ul>
+
+    <div class="edu-timeline">
+
+      <div class="edu-node reveal">
+        <div class="edu-period">2017 – 2021 · High School</div>
+        <h3 class="edu-name">Where it <em>started</em></h3>
+        <p class="edu-meta">First wrote code, first felt the dopamine of a passing test. AP courses are where I learned that math, science, and computing weren't separate subjects — they're the same way of thinking applied to different problems.</p>
+        <div class="edu-tags">
+          <span class="edu-tag">AP Computer Science A</span>
+          <span class="edu-tag">AP Calculus</span>
+          <span class="edu-tag">AP Chemistry</span>
+          <span class="edu-tag">AP Biology</span>
+        </div>
       </div>
-      <div class="edu-card reveal d2">
-        <div class="edu-uni">University of North Florida</div>
-        <div class="edu-deg">B.S. Computer Science — Honors in Computing</div>
-        <div class="edu-dates">Aug 2021 – Dec 2024 · Jacksonville, FL</div>
-        <div class="edu-gpa">🎓 CS GPA 3.9 · Dean's List ×5</div>
+
+      <div class="edu-node reveal d1">
+        <div class="edu-period">Aug 2021 – Dec 2024 · Jacksonville, FL</div>
+        <h3 class="edu-name">University of <em>North Florida</em></h3>
+        <p class="edu-meta">B.S. Computer Science — Honors in Computing · CS GPA 3.9 · Dean's List ×5</p>
         <ul class="edu-points">
-          <li>IEEE 17.0 Hackathon — Top 5% globally</li>
-          <li>Lead CS Tutor — 500+ students</li>
+          <li>IEEE 17.0 Hackathon — Top 5% globally (800+ teams)</li>
+          <li>Lead CS Tutor — 500+ students in C++, DSA, debugging, unit testing</li>
           <li>Focus: algorithms, systems, distributed computing</li>
         </ul>
       </div>
+
+      <div class="edu-node current reveal d2">
+        <div class="edu-period">Jan 2025 – Aug 2026 · Orlando, FL <span class="edu-now">Current</span></div>
+        <h3 class="edu-name">University of <em>Central Florida</em></h3>
+        <p class="edu-meta">M.S. Data Analytics — Machine Learning Track · GPA 3.8</p>
+        <ul class="edu-points">
+          <li>Graduate Research Assistant — TRC / MIT² Lab (CECS / IE)</li>
+          <li>Focus: Transformer architectures, NLP, distributed data systems</li>
+          <li>Hack@UCF CTF workshops · AI Club Kaggle Sprint</li>
+        </ul>
+      </div>
+
     </div>
 
     <div class="sec-eyebrow" style="margin-bottom:28px"><span class="sec-num">↳</span> Key Academic Projects</div>
