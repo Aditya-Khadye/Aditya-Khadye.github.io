@@ -764,7 +764,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       <h1 class="hero-name">Aditya<br/><span>Khadye</span></h1>
       <div class="hero-role"><span class="typed-word" id="hero-typed"></span><span class="typed-cur"></span></div>
       <p class="hero-bio">
-        Graduate researcher by day, pipeline debugger by night. I've shipped <strong>production ML systems</strong>, saved <strong>$200K/yr</strong> in cloud costs, and built real-time data pipelines for Apple Vision Pro — all before finishing my Master's. Currently building transformer pipelines for underserved script analysis — research backed by Google, Adobe, and Monotype. Python, Swift, PyTorch — and yes, a lot of time in the terminal at odd hours.
+        Graduate researcher by day, pipeline debugger by night. I've shipped <strong>production ML systems</strong>, saved <strong>$200K/yr</strong> in cloud costs, and built real-time data pipelines for Apple Vision Pro — all before finishing my Master's. Currently researching global writing systems at UCF's MIT² Lab — Transformer pipelines that map which scripts are most underserved by current typefaces. Python, Swift, PyTorch — and yes, a lot of time in the terminal at odd hours.
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-amber">See my work →</a>
@@ -806,7 +806,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         </blockquote>
         <div class="about-body reveal d1">
           <p>I'm <strong>Aditya</strong>, 22 — <strong>M.S. Data Analytics (ML Track)</strong> at UCF, graduating August 2026. <strong>B.S. Computer Science</strong> from UNF before that. Stacked the full AP STEM track in high school; CS A was the class that stuck.</p>
-          <p>I'm strongest at the intersection of <strong>data engineering and applied ML</strong> — building things that actually run in production, not just notebooks. Right now I'm a Graduate Research Assistant in UCF's <strong>MIT² Lab</strong> under Dr. Ben Sawyer, building Transformer pipelines for the <strong>ScriptGap</strong> project — research sponsored by <strong>Google, Adobe, and Monotype</strong> — and XR streaming infrastructure for Apple Vision Pro experiments in driving simulation, gaze tracking, and behavioral biometrics.</p>
+          <p>I'm strongest at the intersection of <strong>data engineering and applied ML</strong> — building things that actually run in production, not just notebooks. Right now I'm a Graduate Research Assistant in UCF's <strong>MIT² Lab</strong> under Dr. Ben Sawyer, building Transformer pipelines for the <strong>ScriptGap</strong> project — global reading analytics over Google CrUX data and font metadata, with outputs aimed at typography R&amp;D — and XR streaming infrastructure for Apple Vision Pro experiments in driving simulation, gaze tracking, and behavioral biometrics.</p>
           <p>Previously at <strong>Travel + Leisure Co.</strong> as a Data Science Intern, I led the <strong>DataPulse initiative</strong> — productionized tree-based failure-prediction models on AWS, optimized Snowflake ETL pipelines, and saved <strong>$200K/yr</strong>. I work across Python, SQL, PyTorch, TensorFlow, AWS, and GCP. Available for full-time roles starting summer 2026 — data engineering, ML engineering, data science, or analytics.</p>
         </div>
       </div>
@@ -848,7 +848,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="exp-right">
           <div class="exp-role">Graduate Research Assistant</div>
           <ul class="exp-bullets">
-            <li>Engineering Transformer pipelines for the <strong>ScriptGap</strong> project — analyzing global digital reading signals and font metadata to guide R&amp;D for <strong>Google, Adobe &amp; Monotype</strong>.</li>
+            <li>Engineering Transformer pipelines for the <strong>ScriptGap</strong> project — analyzing global digital reading signals (Google CrUX) and font metadata to identify underserved writing systems for typographic R&amp;D.</li>
             <li>XR + AI research under <strong>Dr. Ben Sawyer</strong> in UCF's <strong>MIT² Labs</strong> (CECS / Industrial Engineering) — driving simulation, Optic ID gaze tracking, and behavioral biometrics on Apple Vision Pro.</li>
             <li>Hands-on with <strong>visionOS, RealityKit, ARKit, Swift, and CoreML</strong> — PyTorch → CoreML conversion for on-device ML and intelligent spatial interfaces.</li>
             <li>Slurm + MPI cluster orchestration with schema validation gates — cut experiment reruns by <strong>40%</strong>.</li>
@@ -966,12 +966,12 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       <div class="proj-row reveal">
         <div class="proj-visual pv5">
           <div class="proj-emoji">✍️</div>
-          <div class="proj-metric-badge">Sponsored · Google · Adobe · Monotype</div>
+          <div class="proj-metric-badge">Active · UCF MIT² Lab</div>
         </div>
         <div class="proj-info">
           <div class="proj-idx">01 / Research · ML · Typography · Active</div>
           <h3 class="proj-title">ScriptGap — Global Reading Analytics &amp; Transformer Framework</h3>
-          <p class="proj-desc">The flagship of my graduate research. An end-to-end ML framework that ranks the world's writing systems by typographic support — combining Latent Space Analysis of font datasets (OTF) with web reading signals (Google CrUX). The output isn't a paper. It's actionable, data-driven prioritization for Google, Adobe, and Monotype, identifying which underserved scripts deserve R&amp;D investment first.</p>
+          <p class="proj-desc">The flagship of my graduate research. An end-to-end ML framework that ranks the world's writing systems by typographic support — combining Latent Space Analysis of font datasets (OTF) with web reading signals (Google CrUX). The output isn't a paper. It's actionable, data-driven prioritization for typography R&amp;D — identifying which underserved scripts deserve investment first.</p>
           <div class="proj-stack">
             <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">LLMs / NLP</span><span class="proj-tag">GCP / BigQuery</span><span class="proj-tag">OpenCV</span><span class="proj-tag">Latent Space Analysis</span>
           </div>
@@ -1442,7 +1442,7 @@ document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 const lines=[
   {type:'cmd',text:'run impact.sh'},
   {type:'out',text:'▶ UCF Graduate Research Assistant'},
-  {type:'out',text:'  ↳ ScriptGap — Google · Adobe · Monotype'},
+  {type:'out',text:'  ↳ ScriptGap — global reading analytics'},
   {type:'out',text:'  ↳ Transformer pipelines · Slurm + MPI'},
   {type:'out',text:'  ↳ -40% experiment reruns','dim':true},
   {type:'gap'},
@@ -1484,7 +1484,7 @@ setTimeout(typeNext,900);
 // ── Ticker tape ───────────────────────────────────
 const items=[
   ['Python','Primary Lang'],['PyTorch','ML Framework'],['Transformers','Specialty'],
-  ['ScriptGap','Google · Adobe · Monotype'],['Apple Vision Pro','XR Pipelines'],['Slurm + MPI','HPC Clusters'],
+  ['ScriptGap','Global Reading Analytics'],['Apple Vision Pro','XR Pipelines'],['Slurm + MPI','HPC Clusters'],
   ['$200K','Annual Savings'],['39%','ETL Speedup'],['1,240 img/sec','ViT Throughput'],
   ['Snowflake','Data Eng'],['Hugging Face','LLMs'],['Docker','Containers'],
   ['AWS','Cloud'],['FastAPI','Backend'],['Top 5%','IEEE Hackathon'],
