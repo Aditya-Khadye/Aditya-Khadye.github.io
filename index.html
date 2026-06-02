@@ -385,49 +385,52 @@ section{padding:120px 0}
 .exp-item:hover .exp-role{color:var(--blue)}
 
 /* ══════════════════════════════════
-   SKILLS — ticker handled above,
-   plus a structured breakdown
+   SKILLS — three curated cards
 ══════════════════════════════════ */
 #skills{background:var(--bg2);padding-bottom:96px}
-.skills-layout{display:flex;flex-direction:column;gap:0}
-.skills-sidebar{
-  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;
-  padding-bottom:36px;margin-bottom:8px;border-bottom:1px solid var(--border);
+.skills-intro{
+  font-size:.95rem;color:var(--sub);line-height:1.78;margin:18px 0 56px;max-width:620px;
 }
-.skills-sidebar .sec-head{font-size:clamp(36px,4.5vw,62px);margin:0}
-.skills-sidebar p{font-size:.93rem;color:var(--sub);line-height:1.78;margin:0;max-width:560px;justify-self:end}
-@media(max-width:760px){
-  .skills-sidebar{grid-template-columns:1fr;gap:20px;align-items:start}
-  .skills-sidebar p{justify-self:start}
+.skills-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
 }
-
-.skill-groups{display:flex;flex-direction:column;gap:0}
-.skill-groups > div{
-  display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center;
-  padding:30px 0;border-bottom:1px solid var(--border);
-  transition:background var(--tr);
+@media(max-width:960px){.skills-cards{grid-template-columns:1fr;gap:16px}}
+.skill-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:30px 28px;
+  transition:border-color var(--tr),transform var(--tr),background var(--tr);
 }
-.skill-groups > div:hover{background:rgba(94,184,255,.02)}
-.skill-groups > div:last-child{border-bottom:0}
-@media(max-width:760px){
-  .skill-groups > div{grid-template-columns:1fr;gap:14px;padding:24px 0}
+.skill-card:hover{
+  border-color:var(--border2);transform:translateY(-2px);
+  background:rgba(94,184,255,.025);
 }
-.sg-label{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--blue);margin-bottom:0;
+.skill-card-head{
+  display:flex;align-items:center;gap:14px;
+  padding-bottom:22px;margin-bottom:22px;
+  border-bottom:1px solid var(--border);
 }
-.sg-tags{display:flex;flex-wrap:wrap;gap:8px}
-.sg-tag{
-  font-family:var(--mono);font-size:.75rem;padding:6px 14px;border-radius:4px;
-  border:1px solid var(--border);color:var(--sub);
-  transition:all var(--tr);cursor:default;
+.skill-card-icon{
+  width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+  background:var(--adim2);border:1px solid var(--adim);border-radius:9px;
+  color:var(--blue);flex-shrink:0;
 }
-.sg-tag:hover{border-color:var(--blue);color:var(--blue);background:var(--bdim)}
-.sg-tag.hot{border-color:rgba(94,184,255,.35);color:var(--blue);background:var(--bdim2)}
-.sg-yr{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:3px;background:rgba(255,255,255,.06);color:var(--muted);font-size:.66rem;font-weight:500;letter-spacing:.04em}
-.sg-tag.hot .sg-yr{background:rgba(94,184,255,.14);color:var(--blue)}
-[data-theme=light] .sg-yr{background:rgba(0,0,0,.06)}
-[data-theme=light] .sg-tag.hot .sg-yr{background:rgba(45,118,213,.14)}
+.skill-card-icon svg{width:20px;height:20px}
+.skill-card-title{
+  font-family:var(--sans);font-size:.95rem;font-weight:500;
+  color:var(--text);letter-spacing:.01em;
+}
+.skill-card-list{
+  list-style:none;display:flex;flex-direction:column;gap:20px;padding:0;margin:0;
+}
+.skill-card-list li{
+  font-family:var(--mono);font-size:.85rem;color:var(--sub);
+  letter-spacing:.01em;padding-bottom:10px;position:relative;
+}
+.skill-card-list li::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,var(--blue) 0%,var(--blue2) 100%);
+  border-radius:2px;opacity:.55;
+}
 
 /* ══════════════════════════════════
    PROJECTS — editorial rows
@@ -710,7 +713,11 @@ section{padding:120px 0}
 .cf-input:focus,.cf-textarea:focus{border-color:var(--blue)}
 .cf-textarea{min-height:130px}
 .cf-submit{width:100%;padding:14px;font-size:.78rem}
-.cf-success{display:none;background:var(--gdim);border:1px solid rgba(78,201,148,.25);border-radius:6px;padding:14px 18px;font-family:var(--mono);font-size:.75rem;color:var(--green);text-align:center}
+.cf-submit:disabled{opacity:.6;cursor:default}
+.cf-status{display:none;border-radius:6px;padding:14px 18px;font-family:var(--mono);font-size:.75rem;text-align:center;line-height:1.55}
+.cf-status.show{display:block}
+.cf-status.cf-success{background:var(--gdim);border:1px solid rgba(78,201,148,.25);color:var(--green)}
+.cf-status.cf-error{background:rgba(232,107,107,.08);border:1px solid rgba(232,107,107,.28);color:#E86B6B}
 
 /* ══════════════════════════════════
    FOOTER
@@ -905,52 +912,66 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 <section id="skills">
   <div class="container">
     <div class="sec-eyebrow"><span class="sec-num">03</span> Skills</div>
-    <div class="skills-layout">
-      <div class="skills-sidebar reveal">
-        <h2 class="sec-head">Tools I trust<br/><em>in prod</em></h2>
-        <p>Things I've actually debugged at midnight, not just listed on a resume. The blue ones are where I'm strongest — the rest I can navigate and I know what I don't know.</p>
+    <h2 class="sec-head reveal">Tools I trust<br/><em>in prod</em></h2>
+    <p class="skills-intro reveal d1">Things I've actually debugged at midnight, not just listed on a resume. The rest of my stack lives where it actually shows up — inside the projects below.</p>
+
+    <div class="skills-cards reveal d2">
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3 2.5 2.5 0 0 1 2.46-2.04Z"/>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3 2.5 2.5 0 0 0-2.46-2.04Z"/>
+            </svg>
+          </div>
+          <div class="skill-card-title">AI / Machine Learning</div>
+        </div>
+        <ul class="skill-card-list">
+          <li>PyTorch</li>
+          <li>Transformers</li>
+          <li>LLMs / NLP</li>
+          <li>Hugging Face</li>
+          <li>scikit-learn</li>
+        </ul>
       </div>
-      <div class="skill-groups reveal d2">
-        <div>
-          <div class="sg-label">Languages</div>
-          <div class="sg-tags">
-            <span class="sg-tag hot">Python <span class="sg-yr">5y</span></span><span class="sg-tag hot">SQL <span class="sg-yr">3y</span></span>
-            <span class="sg-tag">Java <span class="sg-yr">7y</span></span><span class="sg-tag">C++ <span class="sg-yr">5y</span></span><span class="sg-tag">R <span class="sg-yr">2y</span></span><span class="sg-tag">Swift <span class="sg-yr">1y</span></span>
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
+              <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
+            </svg>
           </div>
+          <div class="skill-card-title">Data Engineering</div>
         </div>
-        <div>
-          <div class="sg-label">AI / ML / NLP</div>
-          <div class="sg-tags">
-            <span class="sg-tag hot">PyTorch</span><span class="sg-tag hot">Transformers</span><span class="sg-tag hot">LLMs</span>
-            <span class="sg-tag">TensorFlow</span><span class="sg-tag">CoreML</span><span class="sg-tag">Generative AI</span><span class="sg-tag">NLP</span>
-            <span class="sg-tag">Hugging Face</span><span class="sg-tag">scikit-learn</span><span class="sg-tag">Mixed Precision Training</span>
+        <ul class="skill-card-list">
+          <li>Snowflake</li>
+          <li>ETL / ELT</li>
+          <li>AWS (S3, EC2, IAM)</li>
+          <li>GCP / BigQuery</li>
+          <li>Spark</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="4 17 10 11 4 5"/>
+              <line x1="12" y1="19" x2="20" y2="19"/>
+            </svg>
           </div>
+          <div class="skill-card-title">Platform</div>
         </div>
-        <div>
-          <div class="sg-label">MLOps / DevOps</div>
-          <div class="sg-tags">
-            <span class="sg-tag hot">CI/CD</span><span class="sg-tag hot">GitHub Actions</span>
-            <span class="sg-tag">Jenkins</span><span class="sg-tag">ArgoCD</span>
-            <span class="sg-tag">Docker</span><span class="sg-tag">Kubernetes</span>
-            <span class="sg-tag">Terraform (IaC)</span><span class="sg-tag">Slurm</span>
-          </div>
-        </div>
-        <div>
-          <div class="sg-label">Data Engineering</div>
-          <div class="sg-tags">
-            <span class="sg-tag hot">Snowflake (Optimization / Modeling)</span><span class="sg-tag hot">ETL / ELT</span>
-            <span class="sg-tag hot">AWS (S3, EC2, IAM)</span><span class="sg-tag">GCP / BigQuery</span>
-            <span class="sg-tag">Redis</span><span class="sg-tag">Spark</span><span class="sg-tag">SQL Server</span><span class="sg-tag">IICS / Informatica</span><span class="sg-tag">Oracle</span><span class="sg-tag">NoSQL</span>
-          </div>
-        </div>
-        <div>
-          <div class="sg-label">Systems / Tools</div>
-          <div class="sg-tags">
-            <span class="sg-tag hot">Linux</span><span class="sg-tag hot">Git</span>
-            <span class="sg-tag">REST APIs</span><span class="sg-tag">FastAPI</span>
-            <span class="sg-tag">MPI (Distributed Computing)</span><span class="sg-tag">Agile / Scrum</span>
-          </div>
-        </div>
+        <ul class="skill-card-list">
+          <li>Python</li>
+          <li>SQL</li>
+          <li>Docker</li>
+          <li>GitHub Actions</li>
+          <li>Linux</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -1343,6 +1364,8 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       </div>
       <div class="reveal d2">
         <form class="contact-form" action="https://formspree.io/f/mnjbeeaq" method="POST">
+          <input type="hidden" name="_subject" value="New contact via portfolio site"/>
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"/>
           <div class="cf-row">
             <div class="cf-group"><label class="cf-label">First Name</label><input class="cf-input" name="first_name" placeholder="Jane" required/></div>
             <div class="cf-group"><label class="cf-label">Last Name</label><input class="cf-input" name="last_name" placeholder="Doe"/></div>
@@ -1351,6 +1374,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <div class="cf-group"><label class="cf-label">Subject</label><input class="cf-input" name="subject" placeholder="Job · Research · Collaboration"/></div>
           <div class="cf-group"><label class="cf-label">Message</label><textarea class="cf-textarea" name="message" placeholder="Tell me about the role or project. I read every message." required></textarea></div>
           <button type="submit" class="btn btn-amber cf-submit">Send message →</button>
+          <div id="cf-status" class="cf-status" role="status" aria-live="polite"></div>
         </form>
       </div>
     </div>
@@ -1522,6 +1546,40 @@ document.getElementById('resumeModal').addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeResume();
 });
+
+// ── Contact form (Formspree AJAX, stays on-page) ───
+const cForm = document.querySelector('.contact-form');
+if (cForm) {
+  const cBtn = cForm.querySelector('.cf-submit');
+  const cStatus = document.getElementById('cf-status');
+  const cBtnLabel = cBtn.textContent;
+  cForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    cStatus.className = 'cf-status';
+    cBtn.disabled = true;
+    cBtn.textContent = 'Sending…';
+    try {
+      const res = await fetch(cForm.action, {
+        method: 'POST',
+        body: new FormData(cForm),
+        headers: { Accept: 'application/json' }
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data.errors || []).map(x => x.message).join(', ') || 'Request failed');
+      }
+      cForm.reset();
+      cStatus.textContent = "Thanks — your message landed. I'll be in touch soon.";
+      cStatus.classList.add('cf-success', 'show');
+      cBtn.textContent = 'Sent ✓';
+    } catch (err) {
+      cStatus.innerHTML = "Couldn't send right now — email me directly at <strong>adityakhadye0406&#64;gmail.com</strong>.";
+      cStatus.classList.add('cf-error', 'show');
+      cBtn.disabled = false;
+      cBtn.textContent = cBtnLabel;
+    }
+  });
+}
 
 </script>
 </body>
