@@ -713,7 +713,11 @@ section{padding:120px 0}
 .cf-input:focus,.cf-textarea:focus{border-color:var(--blue)}
 .cf-textarea{min-height:130px}
 .cf-submit{width:100%;padding:14px;font-size:.78rem}
-.cf-success{display:none;background:var(--gdim);border:1px solid rgba(78,201,148,.25);border-radius:6px;padding:14px 18px;font-family:var(--mono);font-size:.75rem;color:var(--green);text-align:center}
+.cf-submit:disabled{opacity:.6;cursor:default}
+.cf-status{display:none;border-radius:6px;padding:14px 18px;font-family:var(--mono);font-size:.75rem;text-align:center;line-height:1.55}
+.cf-status.show{display:block}
+.cf-status.cf-success{background:var(--gdim);border:1px solid rgba(78,201,148,.25);color:var(--green)}
+.cf-status.cf-error{background:rgba(232,107,107,.08);border:1px solid rgba(232,107,107,.28);color:#E86B6B}
 
 /* ══════════════════════════════════
    FOOTER
@@ -1360,6 +1364,8 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       </div>
       <div class="reveal d2">
         <form class="contact-form" action="https://formspree.io/f/mnjbeeaq" method="POST">
+          <input type="hidden" name="_subject" value="New contact via portfolio site"/>
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"/>
           <div class="cf-row">
             <div class="cf-group"><label class="cf-label">First Name</label><input class="cf-input" name="first_name" placeholder="Jane" required/></div>
             <div class="cf-group"><label class="cf-label">Last Name</label><input class="cf-input" name="last_name" placeholder="Doe"/></div>
@@ -1368,6 +1374,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <div class="cf-group"><label class="cf-label">Subject</label><input class="cf-input" name="subject" placeholder="Job · Research · Collaboration"/></div>
           <div class="cf-group"><label class="cf-label">Message</label><textarea class="cf-textarea" name="message" placeholder="Tell me about the role or project. I read every message." required></textarea></div>
           <button type="submit" class="btn btn-amber cf-submit">Send message →</button>
+          <div id="cf-status" class="cf-status" role="status" aria-live="polite"></div>
         </form>
       </div>
     </div>
@@ -1539,6 +1546,40 @@ document.getElementById('resumeModal').addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeResume();
 });
+
+// ── Contact form (Formspree AJAX, stays on-page) ───
+const cForm = document.querySelector('.contact-form');
+if (cForm) {
+  const cBtn = cForm.querySelector('.cf-submit');
+  const cStatus = document.getElementById('cf-status');
+  const cBtnLabel = cBtn.textContent;
+  cForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    cStatus.className = 'cf-status';
+    cBtn.disabled = true;
+    cBtn.textContent = 'Sending…';
+    try {
+      const res = await fetch(cForm.action, {
+        method: 'POST',
+        body: new FormData(cForm),
+        headers: { Accept: 'application/json' }
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data.errors || []).map(x => x.message).join(', ') || 'Request failed');
+      }
+      cForm.reset();
+      cStatus.textContent = "Thanks — your message landed. I'll be in touch soon.";
+      cStatus.classList.add('cf-success', 'show');
+      cBtn.textContent = 'Sent ✓';
+    } catch (err) {
+      cStatus.innerHTML = "Couldn't send right now — email me directly at <strong>adityakhadye0406&#64;gmail.com</strong>.";
+      cStatus.classList.add('cf-error', 'show');
+      cBtn.disabled = false;
+      cBtn.textContent = cBtnLabel;
+    }
+  });
+}
 
 </script>
 </body>
