@@ -1530,15 +1530,19 @@ document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
 // ── Terminal typewriter ───────────────────────────
 const lines=[
-  {type:'cmd',text:'cat ~/work.txt'},
-  {type:'out',text:'UCF · Graduate Research Assistant · MIT² Lab'},
-  {type:'out',text:'  ScriptGap — TRC (Google, Adobe, Monotype)'},
-  {type:'out',text:'  visionOS HUD · CoreML · 60 Hz UDP telemetry'},
-  {type:'out',text:'  Slurm + MPI · validation runbooks','dim':true},
+  {type:'cmd',text:'whoami'},
+  {type:'out',text:'aditya · ML Engineer · M.S. ML @ UCF (Aug 2026)'},
   {type:'gap'},
-  {type:'cmd',text:'cat ~/internships.txt'},
+  {type:'cmd',text:'cat current_role.txt'},
+  {type:'out',text:'Graduate Research Assistant · MIT² Lab'},
+  {type:'out',text:'  → ScriptGap · TRC (Google, Adobe, Monotype)'},
+  {type:'out',text:'  → visionOS HUD · CoreML · 60 Hz UDP telemetry'},
+  {type:'out',text:'  → cut experiment reruns 40% w/ validation gates','dim':true},
+  {type:'gap'},
+  {type:'cmd',text:'grep -r "shipped" ~/internships'},
   {type:'out',text:'Travel + Leisure Co. · Data Science Intern · 2024'},
-  {type:'out',text:'  Snowflake ETL tuning · failure forecasting models'},
+  {type:'out',text:'  → Snowflake ETL runtime -39% (~$200K/yr saved)'},
+  {type:'out',text:'  → failure-forecasting models · failed jobs -28%','dim':true},
   {type:'gap'},
   {type:'cmd',text:'ls ~/projects'},
   {type:'out',text:'mcp-clinical-doc-agent  trendscope  DOGGO-Project  AI-Agent'},
@@ -1570,8 +1574,9 @@ setTimeout(typeNext,900);
 // ── Ticker tape ───────────────────────────────────
 const items=[
   ['Python','Primary'],['Swift','On-device ML'],['PyTorch','Training & inference'],
-  ['ScriptGap','TRC research'],['CoreML','Vision Pro'],['LangGraph','Agents'],
-  ['FastAPI','Backends'],['Snowflake','Data lake'],['Docker','Deploy'],
+  ['39%','ETL runtime cut'],['ScriptGap','TRC research'],['CoreML','Vision Pro'],
+  ['40%','Fewer reruns'],['LangGraph','Agents'],['FastAPI','Backends'],
+  ['Snowflake','Data lake'],['36%','Faster ViT training'],['Docker','Deploy'],
   ['Slurm + MPI','HPC'],['DuckDB','Local analytics'],['MCP','Tool servers'],
 ];
 const full=[...items,...items]; // duplicate for seamless loop
