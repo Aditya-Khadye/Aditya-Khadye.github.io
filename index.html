@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Aditya Khadye — ML Engineer</title>
+<title>Aditya Khadye — Software Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -392,9 +392,10 @@ section{padding:120px 0}
   font-size:.95rem;color:var(--sub);line-height:1.78;margin:18px 0 56px;max-width:620px;
 }
 .skills-cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:22px;
 }
-@media(max-width:960px){.skills-cards{grid-template-columns:1fr;gap:16px}}
+@media(max-width:1100px){.skills-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.skills-cards{grid-template-columns:1fr;gap:16px}}
 .skill-card{
   background:var(--card);border:1px solid var(--border);border-radius:14px;
   padding:30px 28px;
@@ -455,6 +456,9 @@ section{padding:120px 0}
 .pv3{background:linear-gradient(135deg,#091A11,#0F3420,#165230);background-size:400% 400%;animation:gradShift 9s ease infinite}
 .pv4{background:linear-gradient(135deg,#1A1009,#3A2010,#5A3018);background-size:400% 400%;animation:gradShift 11s ease infinite}
 .pv5{background:linear-gradient(135deg,#0D1A12,#143324,#1E5038);background-size:400% 400%;animation:gradShift 9s ease infinite}
+.pv6{background:linear-gradient(135deg,#12091A,#2A1240,#401858);background-size:400% 400%;animation:gradShift 10s ease infinite}
+.pv7{background:linear-gradient(135deg,#091018,#122030,#1A3048);background-size:400% 400%;animation:gradShift 11s ease infinite}
+.pv8{background:linear-gradient(135deg,#181208,#302010,#483018);background-size:400% 400%;animation:gradShift 9s ease infinite}
 .proj-visual{transition:transform var(--tr)}
 .proj-row:hover .proj-visual{transform:scale(1.01)}
 
@@ -766,12 +770,12 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="hero-left">
       <div class="hero-status">
         <span class="status-dot"></span>
-        Available for 2026 roles — AI / ML Engineering
+        Available for 2026 roles — AI / Software Engineering
       </div>
       <h1 class="hero-name">Aditya<br/><span>Khadye</span></h1>
       <div class="hero-role"><span class="typed-word" id="hero-typed"></span><span class="typed-cur"></span></div>
       <p class="hero-bio">
-        Graduate researcher by day, pipeline debugger by night. I've shipped <strong>production ML systems</strong>, saved <strong>$200K/yr</strong> in cloud costs, and built real-time data pipelines for Apple Vision Pro — all before finishing my Master's. Currently at UCF's MIT² Lab — Transformer pipelines for The Readability Consortium (TRC), whose industry stakeholders include Google, Adobe, and Monotype. Python, Swift, PyTorch — and yes, a lot of time in the terminal at odd hours.
+        Software engineer building <strong>production AI and real-time, on-device systems</strong> in Python and Swift. I've cut ETL runtime <strong>39%</strong>, saved <strong>$200K/yr</strong> at Travel + Leisure Co., and built a real-time visionOS stack with on-device CoreML at UCF's MIT² Lab — plus ML engineering for <strong>ScriptGap</strong> with Google, Adobe, and Monotype. Graduate researcher by day, pipeline debugger by night.
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-amber">See my work →</a>
@@ -813,8 +817,8 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         </blockquote>
         <div class="about-body reveal d1">
           <p>I'm <strong>Aditya</strong>, 22 — <strong>M.S. Data Analytics (ML Track)</strong> at UCF, graduating August 2026. <strong>B.S. Computer Science</strong> from UNF before that. Stacked the full AP STEM track in high school; CS A was the class that stuck.</p>
-          <p>I'm strongest at the intersection of <strong>data engineering and applied ML</strong> — building things that actually run in production, not just notebooks. Right now I'm a Graduate Research Assistant in UCF's <strong>MIT² Lab</strong> under Dr. Ben Sawyer, building Transformer pipelines for the <strong>ScriptGap</strong> project at <strong>The Readability Consortium</strong> (TRC) — global reading analytics over Google CrUX data and font metadata, shaping typography priorities for TRC's industry stakeholders: <strong>Google, Adobe, and Monotype</strong> — and XR streaming infrastructure for Apple Vision Pro experiments in driving simulation, gaze tracking, and behavioral biometrics.</p>
-          <p>Previously at <strong>Travel + Leisure Co.</strong> as a Data Science Intern, I led the <strong>DataPulse initiative</strong> — productionized tree-based failure-prediction models on AWS, optimized Snowflake ETL pipelines, and saved <strong>$200K/yr</strong>. I work across Python, SQL, PyTorch, TensorFlow, AWS, and GCP. Available for full-time roles starting summer 2026 — data engineering, ML engineering, data science, or analytics.</p>
+          <p>I'm strongest at the intersection of <strong>data engineering, applied ML, and on-device systems</strong> — building things that actually run in production, not just notebooks. Right now I'm a Graduate Research Assistant in UCF's <strong>MIT² Lab</strong> under Dr. Ben Sawyer: leading ML for <strong>ScriptGap</strong> at <strong>The Readability Consortium</strong> (Google, Adobe, Monotype); engineering the visionOS AR HUD with <strong>CoreML on-device inference</strong> and a <strong>60 Hz UDP telemetry pipeline</strong> on Apple Vision Pro; and building <strong>Durandal</strong>, a real-time data-quality agent across multi-stream lab sessions.</p>
+          <p>Previously at <strong>Travel + Leisure Co.</strong> as a Data Science Intern, I led the <strong>DataPulse initiative</strong> — cut Snowflake ETL runtime <strong>39%</strong>, productionized tree-based failure-prediction models on Oracle with Redis, and saved <strong>$200K/yr</strong>. Side projects span agentic AI (<strong>MCP, LangGraph</strong>), market analytics pipelines, RAG with guardrails, and ViT training optimization. Available for full-time roles starting summer 2026.</p>
         </div>
       </div>
       <div class="about-right reveal d2">
@@ -831,7 +835,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <div class="avail-dot"></div>
           <div>
             <div class="avail-text">Open to work — 2026</div>
-            <div class="avail-sub">Full-time · ML Eng / AI Apps · Remote or hybrid</div>
+            <div class="avail-sub">Full-time · Software Eng / AI Apps · Remote or hybrid</div>
           </div>
         </div>
       </div>
@@ -855,13 +859,14 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="exp-right">
           <div class="exp-role">Graduate Research Assistant</div>
           <ul class="exp-bullets">
-            <li>Engineering Transformer pipelines for the <strong>ScriptGap</strong> project at <strong>The Readability Consortium</strong> — analyzing global reading signals (Google CrUX) and font metadata; outputs shape typography priorities for TRC stakeholders <strong>Google, Adobe, and Monotype</strong>.</li>
-            <li>XR + AI research under <strong>Dr. Ben Sawyer</strong> in UCF's <strong>MIT² Labs</strong> (CECS / Industrial Engineering) — driving simulation, Optic ID gaze tracking, and behavioral biometrics on Apple Vision Pro.</li>
-            <li>Hands-on with <strong>visionOS, RealityKit, ARKit, Swift, and CoreML</strong> — PyTorch → CoreML conversion for on-device ML and intelligent spatial interfaces.</li>
-            <li>Slurm + MPI cluster orchestration with schema validation gates — cut experiment reruns by <strong>40%</strong>.</li>
+            <li>Engineered the <strong>visionOS client in Swift/SwiftUI</strong> for an Apple Vision Pro AR HUD, with an on-device <strong>CoreML inference path</strong> classifying driver-behavior and cognitive-load events locally — plus a parallel cloud path to compare on-device vs. server latency and privacy trade-offs.</li>
+            <li>Built a low-latency <strong>60 Hz UDP telemetry pipeline</strong> streaming vehicle data from a driving simulator, with a parallel <strong>TCP channel</strong> persisting time-locked session data — binary packet parsing and actor-isolated concurrency to sustain real-time throughput on the headset.</li>
+            <li>Lead data and ML engineering for <strong>ScriptGap</strong>, a Readability Consortium collaboration with <strong>Google, Adobe, and Monotype</strong> — Transformer-based embedding pipelines and latent-space analysis over font (OTF) and web-reading (CrUX) data to rank global writing systems by typographic support.</li>
+            <li>Building <strong>Durandal</strong>, a real-time data-quality agent monitoring multi-stream session data (telemetry, gaze, stimulus) across three machines — rule-based checks with <strong>Claude API</strong> reasoning and NTP/PTP cross-machine clock synchronization.</li>
+            <li>Co-built the lab's research compute environment on Linux clusters (<strong>Slurm + MPI</strong>) — cut experiment reruns by <strong>40%</strong> via automated validation gates and runbooks.</li>
           </ul>
           <div class="exp-chips">
-            <span class="exp-chip">Swift</span><span class="exp-chip">visionOS</span><span class="exp-chip">RealityKit</span><span class="exp-chip">ARKit</span><span class="exp-chip">CoreML</span><span class="exp-chip">PyTorch</span><span class="exp-chip">Slurm + MPI</span>
+            <span class="exp-chip">Swift</span><span class="exp-chip">visionOS</span><span class="exp-chip">CoreML</span><span class="exp-chip">RealityKit</span><span class="exp-chip">PyTorch</span><span class="exp-chip">Claude API</span><span class="exp-chip">Slurm + MPI</span>
           </div>
         </div>
       </div>
@@ -875,12 +880,12 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="exp-right">
           <div class="exp-role">Data Science Intern</div>
           <ul class="exp-bullets">
-            <li>Led the <strong>DataPulse initiative</strong> — custom ETL pipelines + automated ELT workflows across <strong>Snowflake, SQL Server, and IICS</strong>. <strong>77% performance improvement.</strong></li>
-            <li>Built and productionized <strong>tree-based failure-prediction models</strong> on <strong>AWS with Redis</strong> caching — <strong>28% fewer failed jobs</strong>, 99% data quality.</li>
-            <li>One workflow redesign saved <strong>$200K/yr</strong> and cut manual workload <strong>15–25 hrs/week</strong>. Worked across Snowflake/Oracle environments.</li>
+            <li>Led development of <strong>DataPulse</strong> — custom ETL/ELT workflows across the company's data lake (<strong>Snowflake, SQL Server, Informatica/IICS</strong>), cutting ETL runtime by <strong>39%</strong>.</li>
+            <li>Built and deployed <strong>tree-based models (XGBoost/LightGBM)</strong> to production on <strong>Oracle with Redis</strong> for low-latency serving to forecast pipeline failures, reducing failed jobs by <strong>28%</strong>.</li>
+            <li>Cut engineering manual workload by <strong>15–25 hours/week</strong> (<strong>$200K/yr</strong> in savings) and improved data quality and system stability across Snowflake and Oracle environments.</li>
           </ul>
           <div class="exp-chips">
-            <span class="exp-chip">Snowflake</span><span class="exp-chip">SQL Server</span><span class="exp-chip">IICS</span><span class="exp-chip">Informatica</span><span class="exp-chip">Oracle</span><span class="exp-chip">AWS</span><span class="exp-chip">Redis</span><span class="exp-chip">Azure</span>
+            <span class="exp-chip">Snowflake</span><span class="exp-chip">SQL Server</span><span class="exp-chip">IICS</span><span class="exp-chip">Informatica</span><span class="exp-chip">Oracle</span><span class="exp-chip">Redis</span><span class="exp-chip">XGBoost</span><span class="exp-chip">LightGBM</span>
           </div>
         </div>
       </div>
@@ -930,8 +935,28 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <li>PyTorch</li>
           <li>Transformers</li>
           <li>LLMs / NLP</li>
-          <li>Hugging Face</li>
+          <li>CoreML / on-device ML</li>
           <li>scikit-learn</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 8V4H8"/>
+              <rect x="4" y="8" width="16" height="12" rx="2"/>
+              <path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
+            </svg>
+          </div>
+          <div class="skill-card-title">Agentic AI</div>
+        </div>
+        <ul class="skill-card-list">
+          <li>MCP (Model Context Protocol)</li>
+          <li>LangGraph</li>
+          <li>Claude Code / API</li>
+          <li>RAG + tool orchestration</li>
+          <li>Evaluation guardrails</li>
         </ul>
       </div>
 
@@ -948,9 +973,9 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         </div>
         <ul class="skill-card-list">
           <li>Snowflake</li>
+          <li>dbt · Airflow</li>
           <li>ETL / ELT</li>
-          <li>AWS (S3, EC2, IAM)</li>
-          <li>GCP / BigQuery</li>
+          <li>DuckDB · BigQuery</li>
           <li>Spark</li>
         </ul>
       </div>
@@ -963,14 +988,14 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
               <line x1="12" y1="19" x2="20" y2="19"/>
             </svg>
           </div>
-          <div class="skill-card-title">Platform</div>
+          <div class="skill-card-title">Platform &amp; MLOps</div>
         </div>
         <ul class="skill-card-list">
-          <li>Python</li>
-          <li>SQL</li>
-          <li>Docker</li>
-          <li>GitHub Actions</li>
-          <li>Linux</li>
+          <li>Python · Swift</li>
+          <li>Docker · Kubernetes</li>
+          <li>GitHub Actions · CI/CD</li>
+          <li>FastAPI · Linux</li>
+          <li>Slurm · MPI</li>
         </ul>
       </div>
     </div>
@@ -1011,9 +1036,9 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="proj-info">
           <div class="proj-idx">02 / Research · Real-Time Pipelines</div>
           <h3 class="proj-title">Apple Vision Pro XR Research Platform</h3>
-          <p class="proj-desc">XR research generates a lot of data fast, and most pipelines treat validation as an afterthought. I architected real-time multi-stream data ingestion over TCP — converting raw sensor logs from Apple Vision Pro into analysis-ready datasets for high-fidelity ML experimentation. Schema gates, replayable runs, and validation runbooks cut experiment reruns by 40%.</p>
+          <p class="proj-desc">XR research generates a lot of data fast, and most pipelines treat validation as an afterthought. I engineered the visionOS AR HUD in Swift/SwiftUI with on-device CoreML inference, a 60 Hz UDP telemetry path from the driving simulator, and a parallel TCP channel for time-locked session persistence. Schema gates, replayable runs, and validation runbooks cut experiment reruns by 40%.</p>
           <div class="proj-stack">
-            <span class="proj-tag">Swift</span><span class="proj-tag">visionOS</span><span class="proj-tag">Python</span><span class="proj-tag">TCP Streaming</span><span class="proj-tag">Slurm + MPI</span><span class="proj-tag">Linux</span>
+            <span class="proj-tag">Swift</span><span class="proj-tag">visionOS</span><span class="proj-tag">CoreML</span><span class="proj-tag">UDP / TCP</span><span class="proj-tag">Slurm + MPI</span><span class="proj-tag">Linux</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/MonotypeHUD" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -1030,9 +1055,9 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="proj-info">
           <div class="proj-idx">03 / ML · Training Performance Optimization</div>
           <h3 class="proj-title">ViT — Training Performance Optimization</h3>
-          <p class="proj-desc">A 189K-image Vision Transformer on a free Colab T4 — a hardware problem as much as a ML problem. Mixed-precision training and input pipeline tuning pushed throughput to 1,240 images/sec, GPU utilization to 92%, and cut total training time by 36% (8.0h → 5.1h). Wrapped in a Streamlit dog-breed demo because the engineering should be visible, not just the metric.</p>
+          <p class="proj-desc">A 189K-image Vision Transformer on a single RTX 5080 — a hardware problem as much as a ML problem. Mixed-precision training and input pipeline tuning pushed throughput to 1,240 images/sec, GPU utilization to 92%, and cut total training time by 36% (8.0h → 5.1h). Wrapped in a Streamlit dog-breed demo because the engineering should be visible, not just the metric.</p>
           <div class="proj-stack">
-            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">Mixed Precision</span><span class="proj-tag">Input Pipelines</span><span class="proj-tag">Colab T4</span>
+            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">Mixed Precision</span><span class="proj-tag">Input Pipelines</span><span class="proj-tag">RTX 5080</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/DOGGO-Project" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -1074,6 +1099,60 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-row flip reveal d5">
+        <div class="proj-visual pv6">
+          <div class="proj-emoji">🏥</div>
+          <div class="proj-metric-badge">6-check eval gate · MCP · LangGraph</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-idx">06 / Agentic AI · Document Analysis</div>
+          <h3 class="proj-title">Agentic AI Document Analysis Framework</h3>
+          <p class="proj-desc">Built a FastAPI backend and 4-tool MCP server consumed by a Claude Code agent for end-to-end document analysis — orchestrated via a LangGraph state machine with a deterministic pass/fail eval gate (6 typed checks) to manage false-positive cost. Containerized on AWS with Pandas ETL outputting join-ready CSVs; open-sourced with CI, tests, and demo.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">Python</span><span class="proj-tag">FastAPI</span><span class="proj-tag">LangGraph</span><span class="proj-tag">MCP</span><span class="proj-tag">Docker</span><span class="proj-tag">AWS</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-Khadye/mcp-clinical-doc-agent" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-row reveal d6">
+        <div class="proj-visual pv7">
+          <div class="proj-emoji">📈</div>
+          <div class="proj-metric-badge">Point-in-time · LLM digests</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-idx">07 / Quant · Market Analytics</div>
+          <h3 class="proj-title">TrendScope — Market Analytics &amp; LLM Narrative Engine</h3>
+          <p class="proj-desc">Idempotent ingestion pipeline pulling daily OHLCV for 15 equities and sector ETFs via yfinance into DuckDB — composite-PK upserts and a per-run audit table for reproducible local analytics. Deterministic signal engine spanning trend, momentum, mean-reversion, and volatility indicators with strict point-in-time correctness. Anthropic API generates daily markdown digests; orchestrated end-to-end via a single <code>make daily</code> command.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">Python</span><span class="proj-tag">DuckDB</span><span class="proj-tag">yfinance</span><span class="proj-tag">Anthropic API</span><span class="proj-tag">Pandas</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-Khadye/trendscope" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-row flip reveal d7">
+        <div class="proj-visual pv8">
+          <div class="proj-emoji">🛡️</div>
+          <div class="proj-metric-badge">Multi-stream · 3-machine sync</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-idx">08 / Research · Data Quality</div>
+          <h3 class="proj-title">Durandal — Real-Time Data-Quality Agent</h3>
+          <p class="proj-desc">Lab research sessions generate telemetry, gaze, and stimulus streams across three machines — and bad data often shows up mid-run, not after. Durandal monitors multi-stream session data in real time, combining rule-based checks with Claude API reasoning and NTP/PTP cross-machine clock synchronization so experiment logs stay trustworthy before they hit analysis.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">Python</span><span class="proj-tag">Claude API</span><span class="proj-tag">NTP / PTP</span><span class="proj-tag">Multi-stream</span><span class="proj-tag">Rule-based checks</span>
+          </div>
+          <div class="proj-links">
+            <a href="projects/ar-hud.html" class="proj-link pl-ghost">Related case study →</a>
           </div>
         </div>
       </div>
@@ -1198,13 +1277,27 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="pa-tags"><span class="pa-tag">PyTorch</span><span class="pa-tag">Transformers</span></div>
       </div>
       <div class="pa-card reveal d2">
+        <div class="pa-year">UCF · May 2026</div>
+        <div class="pa-title">Agentic AI Document Analysis (MCP)</div>
+        <p class="pa-desc">FastAPI + MCP server with LangGraph orchestration, 6-check eval gate, and AWS containerization.</p>
+        <div class="pa-grade">🏆 Open Source</div>
+        <div class="pa-tags"><span class="pa-tag">MCP</span><span class="pa-tag">LangGraph</span><span class="pa-tag">FastAPI</span></div>
+      </div>
+      <div class="pa-card reveal d3">
+        <div class="pa-year">Personal · Mar 2026</div>
+        <div class="pa-title">TrendScope Market Analytics</div>
+        <p class="pa-desc">DuckDB ingestion, point-in-time signal engine, and LLM-generated daily markdown digests.</p>
+        <div class="pa-grade">🏆 Open Source</div>
+        <div class="pa-tags"><span class="pa-tag">DuckDB</span><span class="pa-tag">Anthropic API</span><span class="pa-tag">Pandas</span></div>
+      </div>
+      <div class="pa-card reveal d4">
         <div class="pa-year">UCF · Dec 2024</div>
         <div class="pa-title">RAG System with Guardrails</div>
         <p class="pa-desc">Hybrid BM25 + FAISS retrieval, Redis caching, quantized inference, offline eval harness.</p>
         <div class="pa-grade">🏆 Top Result</div>
         <div class="pa-tags"><span class="pa-tag">FAISS</span><span class="pa-tag">FastAPI</span><span class="pa-tag">Redis</span></div>
       </div>
-      <div class="pa-card reveal d3">
+      <div class="pa-card reveal d5">
         <div class="pa-year">UNF · IEEE 2023</div>
         <div class="pa-title">IEEE 17.0 Hackathon</div>
         <p class="pa-desc">Top 5% placement globally in international IEEE hackathon. Rapid prototyping under pressure.</p>
@@ -1343,7 +1436,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="contact-layout">
       <div class="contact-left reveal">
         <h2 class="sec-head">Let's build<br/>something<br/><em>worth building</em></h2>
-        <p>I'm looking for <strong>AI / ML Engineering roles in 2026</strong>. Full-time. Ideally somewhere the codebase has opinions, the problems are genuinely hard, and "it works on my machine" isn't an acceptable answer. If that's your team, let's talk.</p>
+        <p>I'm looking for <strong>AI / Software Engineering roles in 2026</strong>. Full-time. Ideally somewhere the codebase has opinions, the problems are genuinely hard, and "it works on my machine" isn't an acceptable answer. If that's your team, let's talk.</p>
         <div class="socials">
           <a href="javascript:void(0)" onclick="window.location='mai'+'lto:adityakhadye0406@gma'+'il.com'" class="social">
             <div class="social-ico">✉️</div>
@@ -1412,7 +1505,7 @@ toggleBtn.addEventListener('click', () => {
 
 // ── Hero typewriter ──────────────────────────────────
 const HERO_TITLES = [
-  'Data Scientist',
+  'Software Engineer',
   'ML Engineer',
   'Graduate Researcher',
 ];
@@ -1469,6 +1562,8 @@ const lines=[
   {type:'out',text:'  ↳ ScriptGap @ TRC — Google · Adobe · Monotype'},
   {type:'out',text:'  ↳ Transformer pipelines · Slurm + MPI'},
   {type:'out',text:'  ↳ -40% experiment reruns','dim':true},
+  {type:'out',text:'  ↳ CoreML on-device · 60 Hz UDP telemetry'},
+  {type:'out',text:'  ↳ Durandal data-quality agent','dim':true},
   {type:'gap'},
   {type:'cmd',text:'query --employer "Travel + Leisure"'},
   {type:'out',text:'▶ Data Science Intern · Summer 2024'},
@@ -1480,6 +1575,10 @@ const lines=[
   {type:'out',text:'✓ ViT throughput    1,240 img/sec'},
   {type:'out',text:'✓ GPU utilisation   92%'},
   {type:'out',text:'✓ Training time     -36% (8.0h → 5.1h)','dim':true},
+  {type:'gap'},
+  {type:'cmd',text:'ls ./projects/ | grep -E "mcp|trend"'},
+  {type:'out',text:'▶ mcp-clinical-doc-agent  MCP · LangGraph · eval gates'},
+  {type:'out',text:'▶ trendscope              DuckDB · signals · LLM digests','dim':true},
 ];
 const tbody=document.getElementById('term-body');
 let li=0,ci=0;
@@ -1507,11 +1606,11 @@ setTimeout(typeNext,900);
 
 // ── Ticker tape ───────────────────────────────────
 const items=[
-  ['Python','Primary Lang'],['PyTorch','ML Framework'],['Transformers','Specialty'],
-  ['ScriptGap @ TRC','Google · Adobe · Monotype'],['Apple Vision Pro','XR Pipelines'],['Slurm + MPI','HPC Clusters'],
+  ['Python','Primary Lang'],['Swift','On-Device ML'],['PyTorch','ML Framework'],
+  ['ScriptGap @ TRC','Google · Adobe · Monotype'],['CoreML','Apple Vision Pro'],['MCP','Agentic AI'],
   ['$200K','Annual Savings'],['39%','ETL Speedup'],['1,240 img/sec','ViT Throughput'],
-  ['Snowflake','Data Eng'],['Hugging Face','LLMs'],['Docker','Containers'],
-  ['AWS','Cloud'],['FastAPI','Backend'],['Top 5%','IEEE Hackathon'],
+  ['LangGraph','Orchestration'],['DuckDB','Analytics'],['Snowflake','Data Eng'],
+  ['FastAPI','Backend'],['Docker','Containers'],['Slurm + MPI','HPC Clusters'],
 ];
 const full=[...items,...items]; // duplicate for seamless loop
 const track=document.getElementById('ticker');
