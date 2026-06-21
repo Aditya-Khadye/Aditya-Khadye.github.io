@@ -1081,9 +1081,9 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="proj-info">
           <div class="proj-idx">04 / ML Systems · RAG</div>
           <h3 class="proj-title">Agentic AI RAG System with Guardrails</h3>
-          <p class="proj-desc">Hybrid retrieval (BM25 + vector search), cached summaries, and quantized inference for low-latency Q&amp;A. Most of my time went into evaluation guardrails and a modular tool-calling agent — split so each piece can be tested and swapped without rewriting the stack.</p>
+          <p class="proj-desc">FAISS vector retrieval with a modular tool-calling LangChain agent and a Streamlit UI. Most of my time went into the evaluation guardrails and incremental ingestion (no full index rebuilds) — split so each piece can be tested and swapped without rewriting the stack.</p>
           <div class="proj-stack">
-            <span class="proj-tag">Transformers</span><span class="proj-tag">FAISS</span><span class="proj-tag">FastAPI</span><span class="proj-tag">AWS</span><span class="proj-tag">Redis</span><span class="proj-tag">OpenAI / HuggingFace</span>
+            <span class="proj-tag">FAISS</span><span class="proj-tag">LangChain</span><span class="proj-tag">Streamlit</span><span class="proj-tag">OpenAI / HuggingFace</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/AI-Agent" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -1150,14 +1150,14 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       <div class="proj-row flip reveal d7">
         <div class="proj-visual pv7">
           <div class="proj-emoji">📈</div>
-          <div class="proj-metric-badge">Point-in-time · LLM digests</div>
+          <div class="proj-metric-badge">Idempotent ingest · DuckDB</div>
         </div>
         <div class="proj-info">
           <div class="proj-idx">08 / Quant · Market Analytics</div>
-          <h3 class="proj-title">TrendScope — Market Analytics &amp; LLM Narrative Engine</h3>
-          <p class="proj-desc">Idempotent ingestion pipeline pulling daily OHLCV for 15 equities and sector ETFs via yfinance into DuckDB — composite-PK upserts and a per-run audit table for reproducible local analytics. Deterministic signal engine spanning trend, momentum, mean-reversion, and volatility indicators with strict point-in-time correctness. Anthropic API generates daily markdown digests; orchestrated end-to-end via a single <code>make daily</code> command.</p>
+          <h3 class="proj-title">TrendScope — Market Analytics Pipeline</h3>
+          <p class="proj-desc">Idempotent ingestion pipeline pulling daily OHLCV for 15 equities and sector ETFs via yfinance into DuckDB — composite-PK upserts and a per-run audit table for reproducible, point-in-time local analytics. A deterministic signal layer (trend, momentum, mean-reversion, volatility) and Anthropic-generated markdown digests are in progress on top of it.</p>
           <div class="proj-stack">
-            <span class="proj-tag">Python</span><span class="proj-tag">DuckDB</span><span class="proj-tag">yfinance</span><span class="proj-tag">Anthropic API</span><span class="proj-tag">Pandas</span>
+            <span class="proj-tag">Python</span><span class="proj-tag">DuckDB</span><span class="proj-tag">yfinance</span><span class="proj-tag">Pandas</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/trendscope" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -1280,16 +1280,16 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       <div class="pa-card reveal d3">
         <div class="pa-year">Personal · Mar 2026</div>
         <div class="pa-title">TrendScope Market Analytics</div>
-        <p class="pa-desc">DuckDB ingestion, point-in-time signal engine, and LLM-generated daily markdown digests.</p>
+        <p class="pa-desc">Idempotent yfinance → DuckDB ingestion with composite-PK upserts and a per-run audit table. Signal layer + LLM digests in progress.</p>
         <div class="pa-grade">Open source</div>
         <div class="pa-tags"><span class="pa-tag">DuckDB</span><span class="pa-tag">Anthropic API</span><span class="pa-tag">Pandas</span></div>
       </div>
       <div class="pa-card reveal d4">
         <div class="pa-year">UCF · Dec 2024</div>
         <div class="pa-title">RAG System with Guardrails</div>
-        <p class="pa-desc">Hybrid BM25 + FAISS retrieval, Redis caching, quantized inference, offline eval harness.</p>
+        <p class="pa-desc">FAISS retrieval, incremental ingestion, a tool-calling LangChain agent, and an offline eval harness.</p>
         <div class="pa-grade">Course project</div>
-        <div class="pa-tags"><span class="pa-tag">FAISS</span><span class="pa-tag">FastAPI</span><span class="pa-tag">Redis</span></div>
+        <div class="pa-tags"><span class="pa-tag">FAISS</span><span class="pa-tag">LangChain</span><span class="pa-tag">Streamlit</span></div>
       </div>
       <div class="pa-card reveal d5">
         <div class="pa-year">UNF · IEEE 2023</div>
