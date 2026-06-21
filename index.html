@@ -870,7 +870,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <ul class="exp-bullets">
             <li>Engineered the <strong>visionOS client in Swift/SwiftUI</strong> for an Apple Vision Pro AR HUD, with an on-device <strong>CoreML inference path</strong> classifying driver-behavior and cognitive-load events locally — plus a parallel cloud path to compare on-device vs. server latency and privacy trade-offs.</li>
             <li>Built a low-latency <strong>60 Hz UDP telemetry pipeline</strong> streaming vehicle data from a driving simulator, with a parallel <strong>TCP channel</strong> persisting time-locked session data — binary packet parsing and actor-isolated concurrency to sustain real-time throughput on the headset.</li>
-            <li>Own ML pipeline work for <strong>ScriptGap</strong>, a Readability Consortium collaboration with <strong>Google, Adobe, and Monotype</strong> — Transformer-based embedding pipelines and latent-space analysis over font (OTF) and web-reading (CrUX) data to rank global writing systems by typographic support.</li>
+            <li>Own ML pipeline work for <strong>ScriptGap</strong> — a collaboration with <strong>The Readability Consortium</strong> (whose stakeholders include Google, Adobe, and Monotype) — Transformer-based embedding pipelines and latent-space analysis over font (OTF) and web-reading (CrUX) data to rank global writing systems by typographic support.</li>
             <li>Building <strong>Durandal</strong>, a real-time data-quality agent monitoring multi-stream session data (telemetry, gaze, stimulus) across three machines — rule-based checks with <strong>Claude API</strong> reasoning and NTP/PTP cross-machine clock synchronization.</li>
             <li>Co-built the lab's research compute environment on Linux clusters (<strong>Slurm + MPI</strong>) — cut experiment reruns by <strong>40%</strong> via automated validation gates and runbooks.</li>
           </ul>
@@ -1028,7 +1028,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <h3 class="proj-title">ScriptGap — Global Reading Analytics &amp; Transformer Framework</h3>
           <p class="proj-desc">My graduate research with The Readability Consortium (Google, Adobe, Monotype). End-to-end ML to rank writing systems by typographic support — latent-space analysis on font datasets (OTF) plus web reading signals (Google CrUX). Output is prioritization data for partners on which underserved scripts need investment.</p>
           <div class="proj-stack">
-            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">LLMs / NLP</span><span class="proj-tag">GCP / BigQuery</span><span class="proj-tag">OpenCV</span><span class="proj-tag">Latent Space Analysis</span>
+            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">LLMs / NLP</span><span class="proj-tag">GCP / BigQuery</span><span class="proj-tag">Latent Space Analysis</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/TheScriptGap" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -1050,7 +1050,6 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
             <span class="proj-tag">Swift</span><span class="proj-tag">visionOS</span><span class="proj-tag">CoreML</span><span class="proj-tag">UDP / TCP</span><span class="proj-tag">Slurm + MPI</span><span class="proj-tag">Linux</span>
           </div>
           <div class="proj-links">
-            <a href="https://github.com/Aditya-Khadye/MonotypeHUD" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
             <a href="projects/ar-hud.html" class="proj-link pl-ghost">Case study →</a>
           </div>
         </div>
@@ -1084,7 +1083,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <h3 class="proj-title">Agentic AI RAG System with Guardrails</h3>
           <p class="proj-desc">Hybrid retrieval (BM25 + vector search), cached summaries, and quantized inference for low-latency Q&amp;A. Most of my time went into evaluation guardrails and a modular tool-calling agent — split so each piece can be tested and swapped without rewriting the stack.</p>
           <div class="proj-stack">
-            <span class="proj-tag">Transformers</span><span class="proj-tag">FAISS</span><span class="proj-tag">FastAPI</span><span class="proj-tag">AWS</span><span class="proj-tag">Redis</span><span class="proj-tag">Gemini / OpenAI</span>
+            <span class="proj-tag">Transformers</span><span class="proj-tag">FAISS</span><span class="proj-tag">FastAPI</span><span class="proj-tag">AWS</span><span class="proj-tag">Redis</span><span class="proj-tag">OpenAI / HuggingFace</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/AI-Agent" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -1262,7 +1261,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="pa-title">Apple Vision Pro XR Research Platform</div>
         <p class="pa-desc">On-device inference pipeline for XR experiment data. Reproducible, validated, Slurm-orchestrated.</p>
         <div class="pa-grade">Graduate research</div>
-        <div class="pa-tags"><span class="pa-tag">Swift</span><span class="pa-tag">visionOS</span><span class="pa-tag">PyTorch</span></div>
+        <div class="pa-tags"><span class="pa-tag">Swift</span><span class="pa-tag">visionOS</span><span class="pa-tag">CoreML</span></div>
       </div>
       <div class="pa-card reveal d1">
         <div class="pa-year">UCF · Apr 2025</div>
