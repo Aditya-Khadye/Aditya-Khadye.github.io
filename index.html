@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Aditya Khadye — Software Engineer</title>
+<title>Aditya Khadye — ML Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -220,8 +220,12 @@ p{color:var(--sub);line-height:1.75}
   opacity:0;animation:fadeUp .6s .35s forwards;min-height:1.7em;
 }
 .hero-role::before{content:'';width:32px;height:1px;background:var(--blue);flex-shrink:0}
-.typed-word{color:var(--text)}
-.typed-cur{display:inline-block;width:3px;height:1em;background:var(--blue);vertical-align:middle;margin-left:4px;animation:termBlink 1s infinite;}
+.hero-role span{color:var(--text)}
+.hero-sub{
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);margin:-18px 0 28px 46px;
+  opacity:0;animation:fadeUp .6s .42s forwards;
+}
 
 .hero-bio{
   font-size:1.05rem;color:var(--sub);max-width:520px;line-height:1.8;margin-bottom:44px;
@@ -770,12 +774,13 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="hero-left">
       <div class="hero-status">
         <span class="status-dot"></span>
-        Available for 2026 roles — AI / Software Engineering
+        Available for 2026 roles — ML Engineering
       </div>
       <h1 class="hero-name">Aditya<br/><span>Khadye</span></h1>
-      <div class="hero-role"><span class="typed-word" id="hero-typed"></span><span class="typed-cur"></span></div>
+      <div class="hero-role"><span>ML Engineer</span></div>
+      <p class="hero-sub">Production AI · On-Device ML · Real-Time Systems</p>
       <p class="hero-bio">
-        Software engineer building <strong>production AI and real-time, on-device systems</strong> in Python and Swift. I've cut ETL runtime <strong>39%</strong>, saved <strong>$200K/yr</strong> at Travel + Leisure Co., and built a real-time visionOS stack with on-device CoreML at UCF's MIT² Lab — plus ML engineering for <strong>ScriptGap</strong> with Google, Adobe, and Monotype. Graduate researcher by day, pipeline debugger by night.
+        I build <strong>production ML systems</strong> in Python and Swift — from Transformer pipelines and on-device CoreML to agentic AI with eval guardrails. Cut ETL runtime <strong>39%</strong>, saved <strong>$200K/yr</strong> at Travel + Leisure Co., and ship research that runs in prod at UCF's MIT² Lab with Google, Adobe, and Monotype.
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-amber">See my work →</a>
@@ -816,9 +821,9 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <cite style="display:block;margin-top:12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);font-style:normal;">— Leonardo da Vinci</cite>
         </blockquote>
         <div class="about-body reveal d1">
-          <p>I'm <strong>Aditya</strong>, 22 — <strong>M.S. Data Analytics (ML Track)</strong> at UCF, graduating August 2026. <strong>B.S. Computer Science</strong> from UNF before that. Stacked the full AP STEM track in high school; CS A was the class that stuck.</p>
-          <p>I'm strongest at the intersection of <strong>data engineering, applied ML, and on-device systems</strong> — building things that actually run in production, not just notebooks. Right now I'm a Graduate Research Assistant in UCF's <strong>MIT² Lab</strong> under Dr. Ben Sawyer: leading ML for <strong>ScriptGap</strong> at <strong>The Readability Consortium</strong> (Google, Adobe, Monotype); engineering the visionOS AR HUD with <strong>CoreML on-device inference</strong> and a <strong>60 Hz UDP telemetry pipeline</strong> on Apple Vision Pro; and building <strong>Durandal</strong>, a real-time data-quality agent across multi-stream lab sessions.</p>
-          <p>Previously at <strong>Travel + Leisure Co.</strong> as a Data Science Intern, I led the <strong>DataPulse initiative</strong> — cut Snowflake ETL runtime <strong>39%</strong>, productionized tree-based failure-prediction models on Oracle with Redis, and saved <strong>$200K/yr</strong>. Side projects span agentic AI (<strong>MCP, LangGraph</strong>), market analytics pipelines, RAG with guardrails, and ViT training optimization. Available for full-time roles starting summer 2026.</p>
+          <p>I'm <strong>Aditya</strong> — an <strong>ML Engineer</strong> graduating with my M.S. in Data Analytics (ML Track) from UCF in August 2026. I build systems that leave the notebook: production pipelines, on-device inference, and agentic AI with real evaluation gates.</p>
+          <p>Right now at UCF's <strong>MIT² Lab</strong>, I lead ML for <strong>ScriptGap</strong> with The Readability Consortium (Google, Adobe, Monotype), engineer the visionOS AR HUD with <strong>CoreML on-device inference</strong>, and built <strong>Durandal</strong>, a real-time data-quality agent for multi-stream lab sessions.</p>
+          <p>Before that, I cut Snowflake ETL runtime <strong>39%</strong> and saved <strong>$200K/yr</strong> at Travel + Leisure Co. I also ship side projects in agentic AI (<strong>MCP, LangGraph</strong>), RAG with guardrails, and training optimization — all the same lane, different surfaces.</p>
         </div>
       </div>
       <div class="about-right reveal d2">
@@ -835,7 +840,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           <div class="avail-dot"></div>
           <div>
             <div class="avail-text">Open to work — 2026</div>
-            <div class="avail-sub">Full-time · Software Eng / AI Apps · Remote or hybrid</div>
+            <div class="avail-sub">Full-time · ML Engineer · Remote or hybrid</div>
           </div>
         </div>
       </div>
@@ -918,7 +923,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
   <div class="container">
     <div class="sec-eyebrow"><span class="sec-num">03</span> Skills</div>
     <h2 class="sec-head reveal">Tools I trust<br/><em>in prod</em></h2>
-    <p class="skills-intro reveal d1">Things I've actually debugged at midnight, not just listed on a resume. The rest of my stack lives where it actually shows up — inside the projects below.</p>
+    <p class="skills-intro reveal d1">Production ML first — PyTorch, CoreML, Transformers, and the infra that keeps models honest in prod.</p>
 
     <div class="skills-cards reveal d2">
       <div class="skill-card">
@@ -1048,20 +1053,19 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       </div>
 
       <div class="proj-row reveal d2">
-        <div class="proj-visual pv2">
-          <div class="proj-emoji">🐕</div>
-          <div class="proj-metric-badge">▲ 36% faster · 1,240 img/sec · 92% GPU</div>
+        <div class="proj-visual pv6">
+          <div class="proj-emoji">🏥</div>
+          <div class="proj-metric-badge">6-check eval gate · MCP · LangGraph</div>
         </div>
         <div class="proj-info">
-          <div class="proj-idx">03 / ML · Training Performance Optimization</div>
-          <h3 class="proj-title">ViT — Training Performance Optimization</h3>
-          <p class="proj-desc">A 189K-image Vision Transformer on a single RTX 5080 — a hardware problem as much as a ML problem. Mixed-precision training and input pipeline tuning pushed throughput to 1,240 images/sec, GPU utilization to 92%, and cut total training time by 36% (8.0h → 5.1h). Wrapped in a Streamlit dog-breed demo because the engineering should be visible, not just the metric.</p>
+          <div class="proj-idx">03 / Agentic AI · Document Analysis</div>
+          <h3 class="proj-title">Agentic AI Document Analysis Framework</h3>
+          <p class="proj-desc">Built a FastAPI backend and 4-tool MCP server consumed by a Claude Code agent for end-to-end document analysis — orchestrated via a LangGraph state machine with a deterministic pass/fail eval gate (6 typed checks) to manage false-positive cost. Containerized on AWS with Pandas ETL outputting join-ready CSVs; open-sourced with CI, tests, and demo.</p>
           <div class="proj-stack">
-            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">Mixed Precision</span><span class="proj-tag">Input Pipelines</span><span class="proj-tag">RTX 5080</span>
+            <span class="proj-tag">Python</span><span class="proj-tag">FastAPI</span><span class="proj-tag">LangGraph</span><span class="proj-tag">MCP</span><span class="proj-tag">Docker</span><span class="proj-tag">AWS</span>
           </div>
           <div class="proj-links">
-            <a href="https://github.com/Aditya-Khadye/DOGGO-Project" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
-            <a href="projects/doggo.html" class="proj-link pl-ghost">Case study →</a>
+            <a href="https://github.com/Aditya-Khadye/mcp-clinical-doc-agent" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
           </div>
         </div>
       </div>
@@ -1086,12 +1090,49 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       </div>
 
       <div class="proj-row reveal d4">
+        <div class="proj-visual pv8">
+          <div class="proj-emoji">🛡️</div>
+          <div class="proj-metric-badge">Multi-stream · 3-machine sync</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-idx">05 / Research · Data Quality</div>
+          <h3 class="proj-title">Durandal — Real-Time Data-Quality Agent</h3>
+          <p class="proj-desc">Lab research sessions generate telemetry, gaze, and stimulus streams across three machines — and bad data often shows up mid-run, not after. Durandal monitors multi-stream session data in real time, combining rule-based checks with Claude API reasoning and NTP/PTP cross-machine clock synchronization so experiment logs stay trustworthy before they hit analysis.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">Python</span><span class="proj-tag">Claude API</span><span class="proj-tag">NTP / PTP</span><span class="proj-tag">Multi-stream</span><span class="proj-tag">Rule-based checks</span>
+          </div>
+          <div class="proj-links">
+            <a href="projects/ar-hud.html" class="proj-link pl-ghost">Related case study →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-row flip reveal d5">
+        <div class="proj-visual pv2">
+          <div class="proj-emoji">🐕</div>
+          <div class="proj-metric-badge">▲ 36% faster · 1,240 img/sec · 92% GPU</div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-idx">06 / ML · Training Performance Optimization</div>
+          <h3 class="proj-title">ViT — Training Performance Optimization</h3>
+          <p class="proj-desc">A 189K-image Vision Transformer on a single RTX 5080 — a hardware problem as much as a ML problem. Mixed-precision training and input pipeline tuning pushed throughput to 1,240 images/sec, GPU utilization to 92%, and cut total training time by 36% (8.0h → 5.1h). Wrapped in a Streamlit dog-breed demo because the engineering should be visible, not just the metric.</p>
+          <div class="proj-stack">
+            <span class="proj-tag">PyTorch</span><span class="proj-tag">Transformers</span><span class="proj-tag">Mixed Precision</span><span class="proj-tag">Input Pipelines</span><span class="proj-tag">RTX 5080</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/Aditya-Khadye/DOGGO-Project" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
+            <a href="projects/doggo.html" class="proj-link pl-ghost">Case study →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-row reveal d6">
         <div class="proj-visual pv4">
           <div class="proj-emoji">❄️</div>
           <div class="proj-metric-badge">▲ 39% runtime · $200K/yr saved</div>
         </div>
         <div class="proj-info">
-          <div class="proj-idx">05 / Data Eng · Cost Optimization</div>
+          <div class="proj-idx">07 / Data Eng · Cost Optimization</div>
           <h3 class="proj-title">Snowflake ETL Tuning at Travel + Leisure</h3>
           <p class="proj-desc">Built tooling to read 684 query stories — EXPLAIN plans, REST API instrumentation, custom Python profiling — and found the patterns quietly bleeding the company. SQL tuning, query optimization, and warehouse right-sizing cut Snowflake ETL runtime by 39% and generated $200K/yr in savings. The kind of work that doesn't get a demo but absolutely gets noticed on the invoice.</p>
           <div class="proj-stack">
@@ -1103,31 +1144,13 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         </div>
       </div>
 
-      <div class="proj-row flip reveal d5">
-        <div class="proj-visual pv6">
-          <div class="proj-emoji">🏥</div>
-          <div class="proj-metric-badge">6-check eval gate · MCP · LangGraph</div>
-        </div>
-        <div class="proj-info">
-          <div class="proj-idx">06 / Agentic AI · Document Analysis</div>
-          <h3 class="proj-title">Agentic AI Document Analysis Framework</h3>
-          <p class="proj-desc">Built a FastAPI backend and 4-tool MCP server consumed by a Claude Code agent for end-to-end document analysis — orchestrated via a LangGraph state machine with a deterministic pass/fail eval gate (6 typed checks) to manage false-positive cost. Containerized on AWS with Pandas ETL outputting join-ready CSVs; open-sourced with CI, tests, and demo.</p>
-          <div class="proj-stack">
-            <span class="proj-tag">Python</span><span class="proj-tag">FastAPI</span><span class="proj-tag">LangGraph</span><span class="proj-tag">MCP</span><span class="proj-tag">Docker</span><span class="proj-tag">AWS</span>
-          </div>
-          <div class="proj-links">
-            <a href="https://github.com/Aditya-Khadye/mcp-clinical-doc-agent" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="proj-row reveal d6">
+      <div class="proj-row flip reveal d7">
         <div class="proj-visual pv7">
           <div class="proj-emoji">📈</div>
           <div class="proj-metric-badge">Point-in-time · LLM digests</div>
         </div>
         <div class="proj-info">
-          <div class="proj-idx">07 / Quant · Market Analytics</div>
+          <div class="proj-idx">08 / Quant · Market Analytics</div>
           <h3 class="proj-title">TrendScope — Market Analytics &amp; LLM Narrative Engine</h3>
           <p class="proj-desc">Idempotent ingestion pipeline pulling daily OHLCV for 15 equities and sector ETFs via yfinance into DuckDB — composite-PK upserts and a per-run audit table for reproducible local analytics. Deterministic signal engine spanning trend, momentum, mean-reversion, and volatility indicators with strict point-in-time correctness. Anthropic API generates daily markdown digests; orchestrated end-to-end via a single <code>make daily</code> command.</p>
           <div class="proj-stack">
@@ -1135,24 +1158,6 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/trendscope" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="proj-row flip reveal d7">
-        <div class="proj-visual pv8">
-          <div class="proj-emoji">🛡️</div>
-          <div class="proj-metric-badge">Multi-stream · 3-machine sync</div>
-        </div>
-        <div class="proj-info">
-          <div class="proj-idx">08 / Research · Data Quality</div>
-          <h3 class="proj-title">Durandal — Real-Time Data-Quality Agent</h3>
-          <p class="proj-desc">Lab research sessions generate telemetry, gaze, and stimulus streams across three machines — and bad data often shows up mid-run, not after. Durandal monitors multi-stream session data in real time, combining rule-based checks with Claude API reasoning and NTP/PTP cross-machine clock synchronization so experiment logs stay trustworthy before they hit analysis.</p>
-          <div class="proj-stack">
-            <span class="proj-tag">Python</span><span class="proj-tag">Claude API</span><span class="proj-tag">NTP / PTP</span><span class="proj-tag">Multi-stream</span><span class="proj-tag">Rule-based checks</span>
-          </div>
-          <div class="proj-links">
-            <a href="projects/ar-hud.html" class="proj-link pl-ghost">Related case study →</a>
           </div>
         </div>
       </div>
@@ -1436,7 +1441,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="contact-layout">
       <div class="contact-left reveal">
         <h2 class="sec-head">Let's build<br/>something<br/><em>worth building</em></h2>
-        <p>I'm looking for <strong>AI / Software Engineering roles in 2026</strong>. Full-time. Ideally somewhere the codebase has opinions, the problems are genuinely hard, and "it works on my machine" isn't an acceptable answer. If that's your team, let's talk.</p>
+        <p>I'm looking for <strong>ML Engineer roles in 2026</strong>. Full-time. Ideally somewhere the codebase has opinions, the problems are genuinely hard, and "it works on my machine" isn't an acceptable answer. If that's your team, let's talk.</p>
         <div class="socials">
           <a href="javascript:void(0)" onclick="window.location='mai'+'lto:adityakhadye0406@gma'+'il.com'" class="social">
             <div class="social-ico">✉️</div>
@@ -1476,7 +1481,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 
 <footer>
   <div class="foot-inner">
-    <div class="foot-txt">© 2026 <em>Aditya Khadye</em> — ML / Software Engineer · Orlando, FL</div>
+    <div class="foot-txt">© 2026 <em>Aditya Khadye</em> — ML Engineer · Orlando, FL</div>
     <div style="display:flex;align-items:center;gap:20px">
       <a href="https://github.com/Aditya-Khadye" target="_blank" class="foot-top">GitHub</a>
       <a href="https://linkedin.com/in/akhadye" target="_blank" class="foot-top">LinkedIn</a>
@@ -1502,28 +1507,6 @@ toggleBtn.addEventListener('click', () => {
   toggleBtn.textContent = next === 'dark' ? '🌙' : '☀️';
   localStorage.setItem('ak-theme', next);
 });
-
-// ── Hero typewriter ──────────────────────────────────
-const HERO_TITLES = [
-  'Software Engineer',
-  'ML Engineer',
-  'Graduate Researcher',
-];
-let hti=0, hci=0, hdel=false;
-const htEl = document.getElementById('hero-typed');
-function heroType(){
-  if(!htEl) return;
-  const w = HERO_TITLES[hti];
-  if(!hdel){
-    htEl.textContent = w.slice(0,++hci);
-    if(hci===w.length){ hdel=true; setTimeout(heroType,1900); return; }
-  } else {
-    htEl.textContent = w.slice(0,--hci);
-    if(hci===0){ hdel=false; hti=(hti+1)%HERO_TITLES.length; }
-  }
-  setTimeout(heroType, hdel ? 52 : 88);
-}
-setTimeout(heroType, 1000);
 
 // ── Scroll behaviors ─────────────────────────────
 const scrollProgress = document.getElementById('scroll-progress');
