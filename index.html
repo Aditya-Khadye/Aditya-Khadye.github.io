@@ -779,13 +779,13 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="hero-left">
       <div class="hero-status">
         <span class="status-dot"></span>
-        Available for full-time ML roles · 2026
+        Available now — full-time ML Engineer roles
       </div>
       <h1 class="hero-name">Aditya<br/><span>Khadye</span></h1>
       <div class="hero-role"><span>ML Engineer</span></div>
-      <p class="hero-sub">M.S. ML @ UCF · graduating Aug 2026 · Orlando</p>
+      <p class="hero-sub">M.S. ML @ UCF, 2026 · Orlando, FL</p>
       <p class="hero-bio">
-        I'm finishing my M.S. in Data Analytics (ML track) at UCF. I build ML pipelines in Python, on-device inference in Swift/CoreML, and agentic systems with real eval checks — in the MIT² Lab, on internships, and in repos I open-source on GitHub.
+        I just finished my M.S. in Data Analytics (ML track) at UCF. I build ML pipelines in Python, on-device inference in Swift/CoreML, and agentic systems with real eval checks — in the MIT² Lab, on internships, and in repos I open-source on GitHub.
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-amber">See my work →</a>
@@ -825,7 +825,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
           Good ML isn't the model — it's everything around it that keeps the model honest.
         </blockquote>
         <div class="about-body reveal d1">
-          <p>I'm <strong>Aditya</strong> — an <strong>ML Engineer</strong> finishing my M.S. in Data Analytics (ML track) at UCF in August 2026. I work on lab pipelines, on-device inference, and agentic tools with eval checks built in from the start.</p>
+          <p>I'm <strong>Aditya</strong> — an <strong>ML Engineer</strong> with an M.S. in Data Analytics (ML track) from UCF, completed August 2026. I work on lab pipelines, on-device inference, and agentic tools with eval checks built in from the start.</p>
           <p>At UCF's <strong>MIT² Lab</strong>, I own the ML pipeline work on <strong>ScriptGap</strong> with The Readability Consortium (Google, Adobe, Monotype), build the visionOS AR HUD with <strong>CoreML on-device inference</strong>, and wrote <strong>Durandal</strong> to flag bad multi-stream lab data before it hits analysis.</p>
           <p>Before grad school, I interned at Travel + Leisure Co. and cut Snowflake ETL runtime <strong>39%</strong> (~<strong>$200K/yr</strong> savings). Side projects in agentic AI (<strong>MCP, LangGraph</strong>), RAG, and training tuning use the same stack — evals, ingestion, and deployment details vary by project.</p>
         </div>
@@ -843,7 +843,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
         <div class="avail-badge reveal d3">
           <div class="avail-dot"></div>
           <div>
-            <div class="avail-text">Open to work — 2026</div>
+            <div class="avail-text">Open to work — available now</div>
             <div class="avail-sub">Full-time · ML Engineer · Remote or hybrid</div>
           </div>
         </div>
@@ -1150,14 +1150,14 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       <div class="proj-row flip reveal d7">
         <div class="proj-visual pv7">
           <div class="proj-emoji">📈</div>
-          <div class="proj-metric-badge">Idempotent ingest · DuckDB</div>
+          <div class="proj-metric-badge">dbt · 44 tests · Airflow DAG</div>
         </div>
         <div class="proj-info">
           <div class="proj-idx">08 / Quant · Market Analytics</div>
-          <h3 class="proj-title">TrendScope — Market Analytics Pipeline</h3>
-          <p class="proj-desc">Idempotent ingestion pipeline pulling daily OHLCV for 15 equities and sector ETFs via yfinance into DuckDB — composite-PK upserts and a per-run audit table for reproducible, point-in-time local analytics. A deterministic signal layer (trend, momentum, mean-reversion, volatility) and Anthropic-generated markdown digests are in progress on top of it.</p>
+          <h3 class="proj-title">TrendScope — Market Analytics &amp; Daily Digest Pipeline</h3>
+          <p class="proj-desc">An end-to-end daily market pipeline: idempotent yfinance → DuckDB ingestion on an append-only raw schema, with extract/load split cleanly from transform. A <strong>dbt</strong> layer builds staging models, signal marts, and snapshots for point-in-time correctness — covered by <strong>44 tests</strong>. On top, rule-based filters and news context feed an <strong>Anthropic-narrated markdown digest</strong>, and the whole run is orchestrated as an <strong>Airflow</strong> DAG (Astro + Cosmos).</p>
           <div class="proj-stack">
-            <span class="proj-tag">Python</span><span class="proj-tag">DuckDB</span><span class="proj-tag">yfinance</span><span class="proj-tag">Pandas</span>
+            <span class="proj-tag">Python</span><span class="proj-tag">dbt</span><span class="proj-tag">Airflow</span><span class="proj-tag">DuckDB</span><span class="proj-tag">Anthropic API</span><span class="proj-tag">yfinance</span>
           </div>
           <div class="proj-links">
             <a href="https://github.com/Aditya-Khadye/trendscope" target="_blank" class="proj-link pl-amber">↗ GitHub</a>
@@ -1231,7 +1231,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="edu-timeline">
 
       <div class="edu-node current reveal">
-        <div class="edu-period">Dec 2024 – Aug 2026 · Orlando, FL <span class="edu-now">Current</span></div>
+        <div class="edu-period">Dec 2024 – Aug 2026 · Orlando, FL</div>
         <h3 class="edu-name">University of <em>Central Florida</em></h3>
         <p class="edu-meta">M.S. Data Analytics (CECS) — <strong>Machine Learning &amp; AI Track</strong> · GPA 3.8</p>
         <ul class="edu-points">
@@ -1280,9 +1280,9 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
       <div class="pa-card reveal d3">
         <div class="pa-year">Personal · Mar 2026</div>
         <div class="pa-title">TrendScope Market Analytics</div>
-        <p class="pa-desc">Idempotent yfinance → DuckDB ingestion with composite-PK upserts and a per-run audit table. Signal layer + LLM digests in progress.</p>
+        <p class="pa-desc">yfinance → DuckDB ingestion, a dbt transform layer with 44 tests, and Anthropic-narrated daily digests on an Airflow DAG.</p>
         <div class="pa-grade">Open source</div>
-        <div class="pa-tags"><span class="pa-tag">DuckDB</span><span class="pa-tag">Anthropic API</span><span class="pa-tag">Pandas</span></div>
+        <div class="pa-tags"><span class="pa-tag">dbt</span><span class="pa-tag">Airflow</span><span class="pa-tag">DuckDB</span></div>
       </div>
       <div class="pa-card reveal d4">
         <div class="pa-year">UCF · Dec 2024</div>
@@ -1430,7 +1430,7 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
     <div class="contact-layout">
       <div class="contact-left reveal">
         <h2 class="sec-head">Get in<br/><em>touch</em></h2>
-        <p>I'm looking for <strong>full-time ML Engineer roles in 2026</strong>. I graduate from UCF in August and want teams that care about evals, clear ownership, and code you'd run again. Happy to walk through any project here or on GitHub — I read every message.</p>
+        <p>I'm looking for <strong>full-time ML Engineer roles</strong> and can start immediately. I finished my M.S. at UCF this August and want teams that care about evals, clear ownership, and code you'd run again. Happy to walk through any project here or on GitHub — I read every message.</p>
         <div class="socials">
           <a href="javascript:void(0)" onclick="window.location='mai'+'lto:adityakhadye0406@gma'+'il.com'" class="social">
             <div class="social-ico">✉️</div>
@@ -1530,7 +1530,7 @@ document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 // ── Terminal typewriter ───────────────────────────
 const lines=[
   {type:'cmd',text:'whoami'},
-  {type:'out',text:'aditya · ML Engineer · M.S. ML @ UCF (Aug 2026)'},
+  {type:'out',text:'aditya · ML Engineer · M.S. ML @ UCF (2026) · available now'},
   {type:'gap'},
   {type:'cmd',text:'cat current_role.txt'},
   {type:'out',text:'Graduate Research Assistant · MIT² Lab'},
