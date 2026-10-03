@@ -4,6 +4,26 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Aditya Khadye — ML Engineer</title>
+<meta name="description" content="M.S. Data Analytics (UCF, 2026). Cut ETL runtime 39% and saved ~$200K/yr at Travel + Leisure. Builds ML pipelines, on-device inference and evaluated agents."/>
+<meta name="theme-color" content="#0D0B09"/>
+<link rel="canonical" href="https://aditya-khadye.github.io/"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png"/>
+<link rel="icon" href="favicon.ico" sizes="48x48"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Aditya Khadye"/>
+<meta property="og:title" content="Aditya Khadye — ML Engineer"/>
+<meta property="og:description" content="M.S. Data Analytics (UCF, 2026). Cut ETL runtime 39% and saved ~$200K/yr at Travel + Leisure. Builds ML pipelines, on-device inference and evaluated agents."/>
+<meta property="og:url" content="https://aditya-khadye.github.io/"/>
+<meta property="og:image" content="https://aditya-khadye.github.io/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Aditya Khadye — M.S. Data Analytics, UCF 2026. Cut ETL runtime 39%, $200K annual savings, 40% fewer experiment reruns."/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Aditya Khadye — ML Engineer"/>
+<meta name="twitter:description" content="M.S. Data Analytics (UCF, 2026). Cut ETL runtime 39% and saved ~$200K/yr at Travel + Leisure. Builds ML pipelines, on-device inference and evaluated agents."/>
+<meta name="twitter:image" content="https://aditya-khadye.github.io/og-image.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -169,7 +189,40 @@ p{color:var(--sub);line-height:1.75}
 .nav-links a.active{color:var(--blue)}
 .nav-hire{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:7px 16px;border:1px solid var(--blue);border-radius:4px;color:var(--blue);cursor:pointer;background:transparent;transition:all var(--tr);position:relative;}
 .nav-hire:hover{background:var(--blue);color:#0D0B09;box-shadow:0 0 16px rgba(94,184,255,.3)}
-@media(max-width:900px){.nav-links{display:none}}
+/* mobile menu: the same <ul> becomes a dropdown, so scroll-spy highlighting keeps working */
+#nav-toggle{
+  display:none;width:36px;height:36px;padding:0;border-radius:50%;
+  border:1px solid var(--border2);background:var(--card);cursor:pointer;
+  align-items:center;justify-content:center;flex-shrink:0;transition:all var(--tr);
+}
+#nav-toggle:hover{border-color:var(--blue)}
+#nav-toggle:focus-visible,.nav-links a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.nav-burger{position:relative;display:block;width:14px;height:10px}
+.nav-burger i{position:absolute;left:0;right:0;height:1.5px;border-radius:1px;background:var(--text);transition:transform .22s var(--ease),opacity .15s}
+.nav-burger i:nth-child(1){top:0}
+.nav-burger i:nth-child(2){top:4.25px}
+.nav-burger i:nth-child(3){top:8.5px}
+#nav.menu-open .nav-burger i:nth-child(1){transform:translateY(4.25px) rotate(45deg)}
+#nav.menu-open .nav-burger i:nth-child(2){opacity:0}
+#nav.menu-open .nav-burger i:nth-child(3){transform:translateY(-4.25px) rotate(-45deg)}
+@keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media(max-width:900px){
+  #nav-toggle{display:flex}
+  .nav-links{
+    display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+    padding:2px 24px 10px;background:var(--bg);border-bottom:1px solid var(--border2);
+    box-shadow:0 18px 40px rgba(0,0,0,.22);
+  }
+  #nav.menu-open{background:var(--bg);border-bottom:1px solid var(--border)}
+  #nav.menu-open .nav-links{display:flex;animation:menuIn .2s var(--ease)}
+  .nav-links li+li{border-top:1px solid var(--border)}
+  .nav-links a{display:flex;align-items:center;justify-content:space-between;min-height:52px;font-size:.8rem;color:var(--sub)}
+  .nav-links a::after{content:attr(data-n);content:attr(data-n) / "";font-size:.68rem;letter-spacing:.1em;color:var(--sub);opacity:.7}
+  .nav-links a.active,.nav-links a.active::after{color:var(--blue);opacity:1}
+}
+@media(max-width:640px){#nav{padding:0 20px}.nav-links{padding-left:20px;padding-right:20px}}
+@media(max-width:400px){.nav-hire{display:none}}
+@media(prefers-reduced-motion:reduce){#nav.menu-open .nav-links{animation:none}.nav-burger i{transition:none}}
 
 /* ══════════════════════════════════
    HERO
@@ -756,20 +809,21 @@ footer{border-top:1px solid var(--border2);padding:28px 0;background:var(--bg2)}
 <body>
 
 <!-- ══ NAV ══ -->
-<nav id="nav">
+<nav id="nav" aria-label="Primary">
   <div class="nav-logo"><em>&lt;</em>aditya.khadye<em>/&gt;</em></div>
-  <ul class="nav-links">
-    <li><a href="#about">about</a></li>
-    <li><a href="#experience">exp</a></li>
-    <li><a href="#skills">skills</a></li>
-    <li><a href="#projects">work</a></li>
-    <li><a href="#university">edu</a></li>
-    <li><a href="#certifications">certs</a></li>
-    <li><a href="#contact">contact</a></li>
+  <ul class="nav-links" id="nav-menu">
+    <li><a href="#about" data-n="01">about</a></li>
+    <li><a href="#experience" data-n="02">exp</a></li>
+    <li><a href="#skills" data-n="03">skills</a></li>
+    <li><a href="#projects" data-n="04">work</a></li>
+    <li><a href="#university" data-n="05">edu</a></li>
+    <li><a href="#certifications" data-n="06">certs</a></li>
+    <li><a href="#contact" data-n="07">contact</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px">
     <button id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark">🌙</button>
     <button class="nav-hire" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">contact</button>
+    <button id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu"><span class="nav-burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
   </div>
 </nav>
 
@@ -1497,6 +1551,25 @@ toggleBtn.addEventListener('click', () => {
   toggleBtn.textContent = next === 'dark' ? '🌙' : '☀️';
   localStorage.setItem('ak-theme', next);
 });
+
+// ── Mobile menu ──────────────────────────────────
+const navEl = document.getElementById('nav');
+const menuBtn = document.getElementById('nav-toggle');
+const menuList = document.getElementById('nav-menu');
+const menuIsOpen = () => navEl.classList.contains('menu-open');
+function setMenu(open, focus){
+  navEl.classList.toggle('menu-open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  if (open && focus === 'first') menuList.querySelector('a').focus();
+  if (!open && focus === 'button') menuBtn.focus();
+}
+// e.detail === 0 means the click came from the keyboard: move focus into the list, since the list sits before the button in DOM order
+menuBtn.addEventListener('click', e => setMenu(!menuIsOpen(), e.detail === 0 ? 'first' : null));
+menuList.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuIsOpen()) setMenu(false, 'button'); });
+document.addEventListener('click', e => { if (menuIsOpen() && !navEl.contains(e.target)) setMenu(false); });
+navEl.addEventListener('focusout', e => { if (menuIsOpen() && e.relatedTarget && !navEl.contains(e.relatedTarget)) setMenu(false); });
+matchMedia('(min-width:901px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 
 // ── Scroll behaviors ─────────────────────────────
 const scrollProgress = document.getElementById('scroll-progress');
