@@ -318,5 +318,6 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
+<script>(function(){var r=new URLSearchParams(location.search).get("role");if(/^(data|swe|ml|ds)$/.test(r)){document.querySelectorAll('a[href*="index.html"]').forEach(function(a){a.setAttribute("href",a.getAttribute("href").replace("index.html","index.html?role="+r))})}})()</script>
 </body>
 </html>
